@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="fa" dir="rtl" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,15 +8,16 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
                         darkbg: '#0f172a',
                         cardbg: '#1e293b',
-                        accent: '#f59e0b', /* کهربایی جذاب */
+                        lightbg: '#f8fafc',
+                        lightcard: '#ffffff',
+                        accent: '#f59e0b',
                         accentHover: '#d97706',
-                        brandPurple: '#8b5cf6',
-                        brandPink: '#ec4899',
                     }
                 }
             }
@@ -26,20 +27,18 @@
         @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap');
         body {
             font-family: 'Vazirmatn', sans-serif;
-            background-color: #0f172a;
-            color: #f1f5f9;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         .custom-shadow {
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between selection:bg-accent selection:text-black">
+<body class="min-h-screen flex flex-col justify-between bg-lightbg dark:bg-darkbg text-slate-800 dark:text-slate-100 selection:bg-accent selection:text-black">
 
-    <header class="bg-cardbg/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50 shadow-lg">
+    <header class="bg-white/80 dark:bg-cardbg/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 sticky top-0 z-50 shadow-sm transition-colors duration-300">
         <div class="max-w-4xl mx-auto px-4 py-3.5 flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <!-- لوگوی اختصاصی گرافیکی و مدرن -->
                 <div class="relative w-11 h-11 rounded-2xl bg-gradient-to-tr from-amber-500 via-orange-500 to-yellow-400 p-0.5 shadow-md flex items-center justify-center transform hover:rotate-6 transition duration-300">
                     <div class="w-full h-full bg-slate-900 rounded-[14px] flex items-center justify-center">
                         <svg class="w-6 h-6 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -48,18 +47,32 @@
                     </div>
                 </div>
                 <div>
-                    <h1 class="text-lg font-extrabold text-white tracking-wide flex items-center gap-1.5">
+                    <h1 class="text-lg font-extrabold tracking-wide flex items-center gap-1.5">
                         یاشار کلاب 
-                        <span class="bg-amber-500/10 text-amber-400 text-[10px] font-semibold px-2 py-0.5 rounded-full border border-amber-500/20">نسخه ۰۴.۰۶.۰۴</span>
+                        <span class="bg-amber-500/10 text-amber-500 dark:text-amber-400 text-[10px] font-semibold px-2 py-0.5 rounded-full border border-amber-500/20">نسخه ۰۴.۰۶.۰۵</span>
                     </h1>
-                    <p class="text-[11px] text-slate-400">ماموریت انجام بده، جایزه نقدی ببر!</p>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400">ماموریت انجام بده، جایزه نقدی ببر!</p>
                 </div>
             </div>
             
             <div class="flex items-center gap-2">
-                <button onclick="openRulesModal()" class="text-xs bg-slate-800 hover:bg-slate-700 text-amber-400 border border-slate-700/80 px-3.5 py-2 rounded-xl transition flex items-center gap-1.5 font-medium shadow-sm">
-                    <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10M6 10h10"/></svg>
-                    <span>قوانین کلاب</span>
+                <!-- دکمه تغییر تم -->
+                <button onclick="toggleTheme()" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-amber-400 border border-slate-200 dark:border-slate-700 transition shadow-sm" title="تغییر حالت روشن/تیره">
+                    <svg id="theme-icon-dark" class="w-4 h-4 hidden dark:block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                    <svg id="theme-icon-light" class="w-4 h-4 block dark:hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                </button>
+                <!-- دکمه‌های درباره ما و قوانین، راهنما، و سوالات متداول -->
+                <button onclick="openInfoModal('about')" class="text-xs bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700/80 px-2.5 py-2 rounded-xl transition flex items-center gap-1 font-medium shadow-sm">
+                    <svg class="w-3.5 h-3.5 text-amber-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                    <span class="hidden sm:inline">قوانین</span>
+                </button>
+                <button onclick="openInfoModal('guide')" class="text-xs bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700/80 px-2.5 py-2 rounded-xl transition flex items-center gap-1 font-medium shadow-sm">
+                    <svg class="w-3.5 h-3.5 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10M6 10h10"/></svg>
+                    <span class="hidden sm:inline">راهنما</span>
+                </button>
+                <button onclick="openInfoModal('faq')" class="text-xs bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700/80 px-2.5 py-2 rounded-xl transition flex items-center gap-1 font-medium shadow-sm">
+                    <svg class="w-3.5 h-3.5 text-purple-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <span class="hidden sm:inline">سوالات متداول</span>
                 </button>
             </div>
         </div>
@@ -68,616 +81,996 @@
     <main class="max-w-4xl mx-auto px-4 py-8 flex-grow w-full">
         
         <!-- بنر خوش‌آمدگویی جذاب -->
-        <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 border border-slate-800 rounded-3xl p-6 md:p-8 mb-8 custom-shadow relative overflow-hidden">
+        <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-white border border-slate-800 rounded-3xl p-6 md:p-8 mb-6 custom-shadow relative overflow-hidden">
             <div class="absolute -left-8 -bottom-8 w-40 h-40 bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>
             <div class="absolute right-0 top-0 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl pointer-events-none"></div>
             
             <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
-            <div>
-                <div class="inline-flex items-center gap-2 bg-amber-500/10 text-amber-400 px-3 py-1 rounded-full text-xs font-semibold mb-3 border border-amber-500/20">
-                    <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m12 8v4l3 3"/></svg>
-                    پرداخت پس از تایید توسط کارشناسان و از طریق «پاکت هدیه بله»
+                <div>
+                    <div class="inline-flex items-center gap-2 bg-amber-500/10 text-amber-400 px-3 py-1 rounded-full text-xs font-semibold mb-3 border border-amber-500/20">
+                        <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m12 8v4l3 3"/></svg>
+                        پرداخت پس از تایید توسط کارشناسان و از طریق «پاکت هدیه بله»
+                    </div>
+                    <h2 class="text-2xl md:text-3xl font-extrabold mb-2 tracking-tight">به دنیای مأموریت‌های پرجایزه خوش آمدی! 👋</h2>
+                    <p class="text-xs md:text-sm text-slate-300 leading-relaxed max-w-xl">
+                        اینجا هرچقدر فعال‌تر باشی، جایزه‌ت بیشتر میشه. مأموریت‌های زیر رو به دقت بخون، انجام بده و پاداش نقدی‌ت رو پس از بررسی دریافت کن. دقت کن استفاده از یاشار کلاب به معنای پذیرش قوانین یاشار کلاب هست.
+                    </p>
                 </div>
-                <h2 class="text-2xl md:text-3xl font-extrabold text-white mb-2 tracking-tight">به دنیای مأموریت‌های پرجایزه خوش آمدی! 👋</h2>
-                <p class="text-xs md:text-sm text-slate-300 leading-relaxed max-w-xl">
-                    اینجا هرچقدر فعال‌تر باشی، جایزه‌ت بیشتر میشه. مأموریت‌های زیر رو به دقت بخون، انجام بده و پاداش نقدی‌ت رو پس از بررسی دریافت کن. دقت کن استفاده از یاشار کلاب به معنای پذیرش قوانین یاشار کلاب هست..
-                </p>
-            </div>
-            <!-- کارت گرافیکی وضعیت درآمد -->
-            <div class="bg-slate-900/80 border border-slate-700/60 rounded-2xl p-4 text-center min-w-[180px] shadow-inner">
-                <span class="text-[11px] text-slate-400 block mb-1">مجموع جوایز کل مأموریت‌ها</span>
-                <span class="text-xl font-black text-amber-400 tracking-wider">۹۰۰,۰۰۰ ریال</span>
-                <span class="text-[10px] text-slate-500 block mt-1">همین الان شروع کن!</span>
+                <div class="bg-slate-900/80 border border-slate-700/60 rounded-2xl p-4 text-center min-w-[180px] shadow-inner">
+                    <span class="text-[11px] text-slate-400 block mb-1">مجموع جوایز کل مأموریت‌ها</span>
+                    <span class="text-xl font-black text-amber-400 tracking-wider">۱۰۰,۰۰۰ تومان</span>
+                    <span class="text-[10px] text-slate-500 block mt-1">تضمین واریز پس از تأیید صف بررسی</span>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- لیست مأموریت‌ها -->
-    <div class="flex items-center justify-between mb-5">
-        <h3 class="text-base font-bold text-white flex items-center gap-2">
-            <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
-            <span>لیست مأموریت‌های فعال</span>
-        </h3>
-        <span class="text-xs text-slate-400">۱۳ مأموریت موجود</span>
-    </div>
-
-    <div class="space-y-5" id="missions-container">
-
-        <!-- مأموریت جدید: ثبت نام در میلی -->
-        <div class="bg-cardbg border border-slate-800 rounded-3xl p-6 custom-shadow hover:border-slate-700 transition duration-300 relative group">
-            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-400 to-yellow-500 rounded-t-3xl opacity-0 group-hover:opacity-100 transition"></div>
-            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
-                <div class="flex items-start gap-3.5">
-                    <div class="w-10 h-10 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center shrink-0 text-amber-400 mt-0.5">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        <!-- بخش ترکیبی پیشنهاد هوشمند و شبکه اجتماعی در کنار هم (کوچک‌تر و کم‌جا‌تر) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+            <!-- پیشنهاد هوشمند مأموریت -->
+            <div class="bg-white dark:bg-cardbg border border-amber-500/30 rounded-2xl p-4 shadow-sm flex items-center justify-between gap-3">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-500 dark:text-amber-400 flex items-center justify-center shrink-0 border border-amber-500/20">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
                     </div>
                     <div>
-                        <span class="text-[11px] text-amber-400 font-semibold uppercase tracking-wider block mb-1">سطح: سخت</span>
-                        <h4 class="text-base font-bold text-white">ثبت نام در میلی با کد معرف ما</h4>
+                        <h3 class="text-xs font-bold text-slate-900 dark:text-white">پیشنهاد هوشمند مأموریت</h3>
+                        <p class="text-[11px] text-slate-500 dark:text-slate-400">دریافت بهترین ماموریت متناسب با شما</p>
                     </div>
                 </div>
-                <span class="bg-amber-500/10 text-amber-400 text-xs font-extrabold px-3.5 py-1.5 rounded-full border border-amber-500/20 self-start">۴۰,۰۰۰ تومان</span>
+                <button onclick="openSmartFormModal()" class="bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-slate-950 font-bold px-3 py-2 rounded-xl text-[11px] transition shadow-sm shrink-0">
+                    شروع
+                </button>
             </div>
-            <p class="text-xs text-slate-300 mb-3 leading-relaxed">
-                    <strong class="text-amber-400 font-semibold">نکته مهم:</strong> شما با کد معرف ما در میلی ثبت نام خواهی کرد. اگر از قبل در میلی حساب دارید شما نمیتوانید این ماموریت رو انجام بدید.
+
+            <!-- ما را دنبال کنید -->
+            <div class="bg-gradient-to-r from-sky-600 to-blue-700 text-white rounded-2xl p-4 shadow-sm flex items-center justify-between gap-3">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center shrink-0">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-xs font-bold">ما را دنبال کنید</h3>
+                        <p class="text-[11px] text-sky-100">عضو کانال ما در بله شو</p>
+                    </div>
+                </div>
+                <a href="http://ble.ir/yashar_club" target="_blank" class="bg-white text-blue-700 hover:bg-sky-50 px-3 py-2 rounded-xl text-[11px] font-bold transition shadow-sm shrink-0">
+                    عضویت
+                </a>
+            </div>
+        </div>
+
+        <!-- فیلترها و مرتب‌سازی مأموریت‌ها -->
+        <div class="bg-white dark:bg-cardbg border border-slate-200 dark:border-slate-800 rounded-3xl p-4 mb-6 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2 w-full sm:w-auto overflow-x-auto pb-2 sm:pb-0">
+                <button onclick="filterMissions('all')" id="filter-all" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-amber-500 text-slate-950 transition shrink-0">همه (۱۴)</button>
+                <button onclick="filterMissions('آسان')" id="filter-easy" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition shrink-0">آسان</button>
+                <button onclick="filterMissions('متوسط')" id="filter-med" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition shrink-0">متوسط</button>
+                <button onclick="filterMissions('سخت')" id="filter-hard" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition shrink-0">سخت / خیلی سخت</button>
+            </div>
+            
+            <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+                <span class="text-xs text-slate-500 dark:text-slate-400 shrink-0">مرتب‌سازی:</span>
+                <select id="sort-select" onchange="sortMissions()" class="bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-xs rounded-xl px-3 py-2 outline-none font-medium">
+                    <option value="default">پیش‌فرض</option>
+                    <option value="reward-desc">بیشترین جایزه</option>
+                    <option value="reward-asc">کمترین جایزه</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- لیست مأموریت‌ها -->
+        <div class="flex items-center justify-between mb-5">
+            <h3 class="text-base font-bold flex items-center gap-2">
+                <svg class="w-5 h-5 text-amber-500 dark:text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
+                <span>لیست مأموریت‌های فعال</span>
+            </h3>
+            <span class="text-xs text-slate-500 dark:text-slate-400">۱۴ مأموریت موجود</span>
+        </div>
+
+        <div class="space-y-5" id="missions-container">
+
+            <!-- مأموریت جدید: ثبت نام در صراف -->
+            <div class="mission-card bg-white dark:bg-cardbg border border-slate-200 dark:border-slate-800 rounded-3xl p-6 custom-shadow hover:border-slate-300 dark:hover:border-slate-700 transition duration-300 relative group" data-level="سخت" data-reward="10000">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-t-3xl opacity-0 group-hover:opacity-100 transition"></div>
+                <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
+                    <div class="flex items-start gap-3.5">
+                        <div class="w-10 h-10 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0 text-cyan-500 dark:text-cyan-400 mt-0.5">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                        </div>
+                        <div>
+                            <span class="text-[11px] text-cyan-600 dark:text-cyan-400 font-semibold uppercase tracking-wider block mb-1">سطح: سخت</span>
+                            <h4 class="text-base font-bold">ثبت نام در صراف با کد معرف ما</h4>
+                        </div>
+                    </div>
+                    <span class="bg-amber-500/10 text-amber-600 dark:text-amber-400 text-xs font-extrabold px-3.5 py-1.5 rounded-full border border-amber-500/20 self-start">۱۰,۰۰۰ تومان</span>
+                </div>
+                <p class="text-xs text-slate-600 dark:text-slate-300 mb-3 leading-relaxed">
+                    <strong class="text-amber-600 dark:text-amber-400 font-semibold">نکته مهم:</strong> شما با کد معرف ما در صراف ثبت نام خواهی کرد. اگر از قبل در صراف حساب دارید شما نمیتوانید این ماموریت رو انجام بدید.
                 </p>
-                <div class="bg-slate-900/70 rounded-2xl p-3.5 mb-4 text-xs text-slate-300 border border-slate-800/80 leading-relaxed">
+                <div class="bg-slate-50 dark:bg-slate-900/70 rounded-2xl p-3.5 mb-4 text-xs text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800/80 leading-relaxed">
+                    از دکمه زیر وارد شده و مراحل ثبت نام در صراف رو تکمیل کنید. شما باید با کد معرف ما ثبت نام کنید. برای این کار باید حتما باید از دکمه زیر وارد بشید. در این کد دعوت شما بعد ثبت نام شما ۳۰ هزار تومان بیت کوین رایگان دریافت خواهی کرد.
+                </div>
+                <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-200 dark:border-slate-800/80 text-xs">
+                    <span class="text-slate-500 dark:text-slate-400 flex items-center gap-1.5"><svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>اعتبار: تا پایان سال ۱۴۰۵</span>
+                    <div class="flex items-center gap-2.5 w-full sm:w-auto">
+                        <button onclick="openGuide('ثبت نام در صراف با کد معرف ما', 'از دکمه زیر وارد شده و مراحل ثبت نام در صراف رو تکمیل کنید. شما باید با کد معرف ما ثبت نام کنید. برای این کار باید حتما باید از دکمه زیر وارد بشید. در این کد دعوت شما بعد ثبت نام شما ۳۰ هزار تومان بیت کوین رایگان دریافت خواهی کرد.', 'https://saraf.app/?ref=3AN29')" class="flex-1 sm:flex-none bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 px-4 py-2.5 rounded-xl font-medium transition flex items-center justify-center gap-1.5 border border-slate-200 dark:border-slate-700/50">
+                            <svg class="w-4 h-4 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                            <span>انجام مأموریت</span>
+                        </button>
+                        <button onclick="openEmbeddedModal('https://survey.porsline.ir/s/F2mbTE2D', 'ثبت در صف بررسی - صراف')" class="flex-1 sm:flex-none bg-amber-500 hover:bg-amber-600 text-slate-950 px-5 py-2.5 rounded-xl font-bold transition shadow-sm flex items-center justify-center gap-1.5">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>ثبت در صف بررسی (انجام دادم)</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- مأموریت: ثبت نام در میلی -->
+            <div class="mission-card bg-white dark:bg-cardbg border border-slate-200 dark:border-slate-800 rounded-3xl p-6 custom-shadow hover:border-slate-300 dark:hover:border-slate-700 transition duration-300 relative group" data-level="سخت" data-reward="40000">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-400 to-yellow-500 rounded-t-3xl opacity-0 group-hover:opacity-100 transition"></div>
+                <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
+                    <div class="flex items-start gap-3.5">
+                        <div class="w-10 h-10 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center shrink-0 text-amber-500 dark:text-amber-400 mt-0.5">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                        </div>
+                        <div>
+                            <span class="text-[11px] text-amber-600 dark:text-amber-400 font-semibold uppercase tracking-wider block mb-1">سطح: سخت</span>
+                            <h4 class="text-base font-bold">ثبت نام در میلی با کد معرف ما</h4>
+                        </div>
+                    </div>
+                    <span class="bg-amber-500/10 text-amber-600 dark:text-amber-400 text-xs font-extrabold px-3.5 py-1.5 rounded-full border border-amber-500/20 self-start">۴۰,۰۰۰ تومان</span>
+                </div>
+                <p class="text-xs text-slate-600 dark:text-slate-300 mb-3 leading-relaxed">
+                    <strong class="text-amber-600 dark:text-amber-400 font-semibold">نکته مهم:</strong> شما با کد معرف ما در میلی ثبت نام خواهی کرد. اگر از قبل در میلی حساب دارید شما نمیتوانید این ماموریت رو انجام بدید.
+                </p>
+                <div class="bg-slate-50 dark:bg-slate-900/70 rounded-2xl p-3.5 mb-4 text-xs text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800/80 leading-relaxed">
                     از دکمه زیر وارد شده و مراحل ثبت نام در میلی رو تکمیل کنید. شما باید با کد معرف ما ثبت نام کنید. برای این کار باید حتما باید از دکمه زیر وارد بشید. در این کد دعوت شما بعد ثبت نام شما یک سوت طلا رایگان دریافت خواهی کرد.
                 </div>
-                <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-800/80 text-xs">
-                    <span class="text-slate-400 flex items-center gap-1.5"><svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>اعتبار: تا پایان سال ۱۴۰۵</span>
+                <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-200 dark:border-slate-800/80 text-xs">
+                    <span class="text-slate-500 dark:text-slate-400 flex items-center gap-1.5"><svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>اعتبار: تا پایان سال ۱۴۰۵</span>
                     <div class="flex items-center gap-2.5 w-full sm:w-auto">
-                        <button onclick="openGuide('ثبت نام در میلی با کد معرف ما', 'از دکمه زیر وارد شده و مراحل ثبت نام در میلی رو تکمیل کنید. شما باید با کد معرف ما ثبت نام کنید. برای این کار باید حتما باید از دکمه زیر وارد بشید. در این کد دعوت شما بعد ثبت نام شما یک سوت طلا رایگان دریافت خواهی کرد.', 'https://milli.gold/app/sign-up?referralCode=milli-znfqw')" class="flex-1 sm:flex-none bg-slate-800 hover:bg-slate-700 text-slate-200 px-4 py-2.5 rounded-xl font-medium transition flex items-center justify-center gap-1.5 border border-slate-700/50">
-                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        <button onclick="openGuide('ثبت نام در میلی با کد معرف ما', 'از دکمه زیر وارد شده و مراحل ثبت نام در میلی رو تکمیل کنید. شما باید با کد معرف ما ثبت نام کنید. برای این کار باید حتما باید از دکمه زیر وارد بشید. در این کد دعوت شما بعد ثبت نام شما یک سوت طلا رایگان دریافت خواهی کرد.', 'https://milli.gold/app/sign-up?referralCode=milli-znfqw')" class="flex-1 sm:flex-none bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 px-4 py-2.5 rounded-xl font-medium transition flex items-center justify-center gap-1.5 border border-slate-200 dark:border-slate-700/50">
+                            <svg class="w-4 h-4 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                             <span>انجام مأموریت</span>
                         </button>
-                        <a href="https://survey.porsline.ir/s/CiWcQJHW" target="_blank" class="flex-1 sm:flex-none bg-amber-500 hover:bg-amber-600 text-slate-950 px-5 py-2.5 rounded-xl font-bold transition shadow-sm flex items-center justify-center gap-1.5">
+                        <button onclick="openEmbeddedModal('https://survey.porsline.ir/s/CiWcQJHW', 'ثبت در صف بررسی - میلی')" class="flex-1 sm:flex-none bg-amber-500 hover:bg-amber-600 text-slate-950 px-5 py-2.5 rounded-xl font-bold transition shadow-sm flex items-center justify-center gap-1.5">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
                             <span>ثبت در صف بررسی (انجام دادم)</span>
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
 
-        <!-- مأموریت جدید: ثبت نام در ملی گلد -->
-        <div class="bg-cardbg border border-slate-800 rounded-3xl p-6 custom-shadow hover:border-slate-700 transition duration-300 relative group">
-            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-yellow-500 to-amber-600 rounded-t-3xl opacity-0 group-hover:opacity-100 transition"></div>
-            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
-                <div class="flex items-start gap-3.5">
-                    <div class="w-10 h-10 rounded-2xl bg-yellow-500/10 border border-yellow-500/20 flex items-center justify-center shrink-0 text-yellow-400 mt-0.5">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            <!-- مأموریت: ثبت نام در ملی گلد -->
+            <div class="mission-card bg-white dark:bg-cardbg border border-slate-200 dark:border-slate-800 rounded-3xl p-6 custom-shadow hover:border-slate-300 dark:hover:border-slate-700 transition duration-300 relative group" data-level="سخت" data-reward="10000">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-yellow-500 to-amber-600 rounded-t-3xl opacity-0 group-hover:opacity-100 transition"></div>
+                <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
+                    <div class="flex items-start gap-3.5">
+                        <div class="w-10 h-10 rounded-2xl bg-yellow-500/10 border border-yellow-500/20 flex items-center justify-center shrink-0 text-yellow-500 dark:text-yellow-400 mt-0.5">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                        </div>
+                        <div>
+                            <span class="text-[11px] text-yellow-600 dark:text-yellow-400 font-semibold uppercase tracking-wider block mb-1">سطح: سخت</span>
+                            <h4 class="text-base font-bold">ثبت نام در ملی گلد با کد معرف ما</h4>
+                        </div>
                     </div>
-                    <div>
-                        <span class="text-[11px] text-yellow-400 font-semibold uppercase tracking-wider block mb-1">سطح: سخت</span>
-                        <h4 class="text-base font-bold text-white">ثبت نام در ملی گلد با کد معرف ما</h4>
-                    </div>
+                    <span class="bg-amber-500/10 text-amber-600 dark:text-amber-400 text-xs font-extrabold px-3.5 py-1.5 rounded-full border border-amber-500/20 self-start">۱۰,۰۰۰ تومان</span>
                 </div>
-                <span class="bg-amber-500/10 text-amber-400 text-xs font-extrabold px-3.5 py-1.5 rounded-full border border-amber-500/20 self-start">۱۰,۰۰۰ تومان</span>
-            </div>
-            <p class="text-xs text-slate-300 mb-3 leading-relaxed">
-                    <strong class="text-amber-400 font-semibold">نکته مهم:</strong> شما با کد معرف ما در ملی گلد ثبت نام خواهی کرد. اگر از قبل در ملی گلد حساب دارید شما نمیتوانید این ماموریت رو انجام بدید.
+                <p class="text-xs text-slate-600 dark:text-slate-300 mb-3 leading-relaxed">
+                    <strong class="text-amber-600 dark:text-amber-400 font-semibold">نکته مهم:</strong> شما با کد معرف ما در ملی گلد ثبت نام خواهی کرد. اگر از قبل در ملی گلد حساب دارید شما نمیتوانید این ماموریت رو انجام بدید.
                 </p>
-                <div class="bg-slate-900/70 rounded-2xl p-3.5 mb-4 text-xs text-slate-300 border border-slate-800/80 leading-relaxed">
+                <div class="bg-slate-50 dark:bg-slate-900/70 rounded-2xl p-3.5 mb-4 text-xs text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800/80 leading-relaxed">
                     از دکمه زیر وارد شده و مراحل ثبت نام در ملی گلد رو تکمیل کنید. شما باید با کد معرف ما ثبت نام کنید. برای این کار باید حتما باید از دکمه زیر وارد بشید. در این کد دعوت شما بعد ثبت نام شما ۴ سوت طلا رایگان دریافت خواهی کرد.
                 </div>
-                <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-800/80 text-xs">
-                    <span class="text-slate-400 flex items-center gap-1.5"><svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>اعتبار: تا پایان سال ۱۴۰۵</span>
+                <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-200 dark:border-slate-800/80 text-xs">
+                    <span class="text-slate-500 dark:text-slate-400 flex items-center gap-1.5"><svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>اعتبار: تا پایان سال ۱۴۰۵</span>
                     <div class="flex items-center gap-2.5 w-full sm:w-auto">
-                        <button onclick="openGuide('ثبت نام در ملی گلد با کد معرف ما', 'از دکمه زیر وارد شده و مراحل ثبت نام در ملی گلد رو تکمیل کنید. شما باید با کد معرف ما ثبت نام کنید. برای این کار باید حتما باید از دکمه زیر وارد بشید. در این کد دعوت شما بعد ثبت نام شما ۴ سوت طلا رایگان دریافت خواهی کرد.', 'https://melligold.com/pwa/account/?ref=MGNDz4OdKXkQ')" class="flex-1 sm:flex-none bg-slate-800 hover:bg-slate-700 text-slate-200 px-4 py-2.5 rounded-xl font-medium transition flex items-center justify-center gap-1.5 border border-slate-700/50">
-                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        <button onclick="openGuide('ثبت نام در ملی گلد با کد معرف ما', 'از دکمه زیر وارد شده و مراحل ثبت نام در ملی گلد رو تکمیل کنید. شما باید با کد معرف ما ثبت نام کنید. برای این کار باید حتما باید از دکمه زیر وارد بشید. در این کد دعوت شما بعد ثبت نام شما ۴ سوت طلا رایگان دریافت خواهی کرد.', 'https://melligold.com/pwa/account/?ref=MGNDz4OdKXkQ')" class="flex-1 sm:flex-none bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 px-4 py-2.5 rounded-xl font-medium transition flex items-center justify-center gap-1.5 border border-slate-200 dark:border-slate-700/50">
+                            <svg class="w-4 h-4 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                             <span>انجام مأموریت</span>
                         </button>
-                        <a href="https://survey.porsline.ir/s/acG4J0OS" target="_blank" class="flex-1 sm:flex-none bg-amber-500 hover:bg-amber-600 text-slate-950 px-5 py-2.5 rounded-xl font-bold transition shadow-sm flex items-center justify-center gap-1.5">
+                        <button onclick="openEmbeddedModal('https://survey.porsline.ir/s/acG4J0OS', 'ثبت در صف بررسی - ملی گلد')" class="flex-1 sm:flex-none bg-amber-500 hover:bg-amber-600 text-slate-950 px-5 py-2.5 rounded-xl font-bold transition shadow-sm flex items-center justify-center gap-1.5">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
                             <span>ثبت در صف بررسی (انجام دادم)</span>
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
 
-        <!-- مأموریت: ثبت نام در نوبیتکس -->
-        <div class="bg-cardbg border border-slate-800 rounded-3xl p-6 custom-shadow hover:border-slate-700 transition duration-300 relative group">
-            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-t-3xl opacity-0 group-hover:opacity-100 transition"></div>
-            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
-                <div class="flex items-start gap-3.5">
-                    <div class="w-10 h-10 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0 text-emerald-400 mt-0.5">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
+            <!-- مأموریت: ثبت نام در نوبیتکس -->
+            <div class="mission-card bg-white dark:bg-cardbg border border-slate-200 dark:border-slate-800 rounded-3xl p-6 custom-shadow hover:border-slate-300 dark:hover:border-slate-700 transition duration-300 relative group" data-level="سخت" data-reward="1000">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-t-3xl opacity-0 group-hover:opacity-100 transition"></div>
+                <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
+                    <div class="flex items-start gap-3.5">
+                        <div class="w-10 h-10 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0 text-emerald-500 dark:text-emerald-400 mt-0.5">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
+                        </div>
+                        <div>
+                            <span class="text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold uppercase tracking-wider block mb-1">سطح: سخت</span>
+                            <h4 class="text-base font-bold">ثبت نام در نوبیتکس با کد معرف ما</h4>
+                        </div>
                     </div>
-                    <div>
-                        <span class="text-[11px] text-emerald-400 font-semibold uppercase tracking-wider block mb-1">سطح: سخت</span>
-                        <h4 class="text-base font-bold text-white">ثبت نام در نوبیتکس با کد معرف ما</h4>
-                    </div>
+                    <span class="bg-amber-500/10 text-amber-600 dark:text-amber-400 text-xs font-extrabold px-3.5 py-1.5 rounded-full border border-amber-500/20 self-start">۱,۰۰۰ تومان</span>
                 </div>
-                <span class="bg-amber-500/10 text-amber-400 text-xs font-extrabold px-3.5 py-1.5 rounded-full border border-amber-500/20 self-start">۱,۰۰۰ تومان</span>
-            </div>
-            <p class="text-xs text-slate-300 mb-3 leading-relaxed">
-                    <strong class="text-amber-400 font-semibold">نکته مهم:</strong> شما با کد معرف ما در نوبیتکس ثبت نام خواهید کرد. اگر از قبل در نوبیتکس حساب دارید شما نمیتوانید این ماموریت رو انجام بدهید.
+                <p class="text-xs text-slate-600 dark:text-slate-300 mb-3 leading-relaxed">
+                    <strong class="text-amber-600 dark:text-amber-400 font-semibold">نکته مهم:</strong> شما با کد معرف ما در نوبیتکس ثبت نام خواهید کرد. اگر از قبل در نوبیتکس حساب دارید شما نمیتوانید این ماموریت رو انجام بدهید.
                 </p>
-                <div class="bg-slate-900/70 rounded-2xl p-3.5 mb-4 text-xs text-slate-300 border border-slate-800/80 leading-relaxed">
+                <div class="bg-slate-50 dark:bg-slate-900/70 rounded-2xl p-3.5 mb-4 text-xs text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800/80 leading-relaxed">
                     از دکمه زیر وارد شده و مراحل ثبت نام در نوبیتکس رو تکمیل کنید. شما باید با کد معرف ما ثبت نام کنید. برای این کار باید حتما از دکمه زیر وارد بشید. در این کد دعوت شما بعد ثبت نام و انجام اولین معامله ۱۵ درصد کارمزد آن معامله به شما تعلق و ۱۵ درصد دیگر هم به ما تعلق می‌گیرد.
                 </div>
-                <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-800/80 text-xs">
-                    <span class="text-slate-400 flex items-center gap-1.5"><svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>اعتبار: تا پایان سال ۱۴۰۵</span>
+                <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-200 dark:border-slate-800/80 text-xs">
+                    <span class="text-slate-500 dark:text-slate-400 flex items-center gap-1.5"><svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>اعتبار: تا پایان سال ۱۴۰۵</span>
                     <div class="flex items-center gap-2.5 w-full sm:w-auto">
-                        <button onclick="openGuide('ثبت نام در نوبیتکس با کد معرف ما', 'از دکمه زیر وارد شده و مراحل ثبت نام در نوبیتکس رو تکمیل کنید. شما باید با کد معرف ما ثبت نام کنید. برای این کار باید حتما از دکمه زیر وارد بشید. در این کد دعوت شما بعد ثبت نام و انجام اولین معامله ۱۵ درصد کارمزد آن معامله به شما تعلق و ۱۵ درصد دیگر هم به ما تعلق می‌گیرد.', 'https://nobitex.ir/signup/?refcode=144BF9C')" class="flex-1 sm:flex-none bg-slate-800 hover:bg-slate-700 text-slate-200 px-4 py-2.5 rounded-xl font-medium transition flex items-center justify-center gap-1.5 border border-slate-700/50">
-                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        <button onclick="openGuide('ثبت نام در نوبیتکس با کد معرف ما', 'از دکمه زیر وارد شده و مراحل ثبت نام در نوبیتکس رو تکمیل کنید. شما باید با کد معرف ما ثبت نام کنید. برای این کار باید حتما از دکمه زیر وارد بشید. در این کد دعوت شما بعد ثبت نام و انجام اولین معامله ۱۵ درصد کارمزد آن معامله به شما تعلق و ۱۵ درصد دیگر هم به ما تعلق می‌گیرد.', 'https://nobitex.ir/signup/?refcode=144BF9C')" class="flex-1 sm:flex-none bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 px-4 py-2.5 rounded-xl font-medium transition flex items-center justify-center gap-1.5 border border-slate-200 dark:border-slate-700/50">
+                            <svg class="w-4 h-4 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                             <span>انجام مأموریت</span>
                         </button>
-                        <a href="https://survey.porsline.ir/s/U0uwbjKL" target="_blank" class="flex-1 sm:flex-none bg-amber-500 hover:bg-amber-600 text-slate-950 px-5 py-2.5 rounded-xl font-bold transition shadow-sm flex items-center justify-center gap-1.5">
+                        <button onclick="openEmbeddedModal('https://survey.porsline.ir/s/U0uwbjKL', 'ثبت در صف بررسی - نوبیتکس')" class="flex-1 sm:flex-none bg-amber-500 hover:bg-amber-600 text-slate-950 px-5 py-2.5 rounded-xl font-bold transition shadow-sm flex items-center justify-center gap-1.5">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
                             <span>ثبت در صف بررسی (انجام دادم)</span>
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
 
             <!-- مأموریت: ثبت نام در وال گلد -->
-        <div class="bg-cardbg border border-slate-800 rounded-3xl p-6 custom-shadow hover:border-slate-700 transition duration-300 relative group">
-            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-yellow-500 to-amber-500 rounded-t-3xl opacity-0 group-hover:opacity-100 transition"></div>
-            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
-                <div class="flex items-start gap-3.5">
-                    <div class="w-10 h-10 rounded-2xl bg-yellow-500/10 border border-yellow-500/20 flex items-center justify-center shrink-0 text-yellow-400 mt-0.5">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            <div class="mission-card bg-white dark:bg-cardbg border border-slate-200 dark:border-slate-800 rounded-3xl p-6 custom-shadow hover:border-slate-300 dark:hover:border-slate-700 transition duration-300 relative group" data-level="سخت" data-reward="5000">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-yellow-500 to-amber-500 rounded-t-3xl opacity-0 group-hover:opacity-100 transition"></div>
+                <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
+                    <div class="flex items-start gap-3.5">
+                        <div class="w-10 h-10 rounded-2xl bg-yellow-500/10 border border-yellow-500/20 flex items-center justify-center shrink-0 text-yellow-500 dark:text-yellow-400 mt-0.5">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                        </div>
+                        <div>
+                            <span class="text-[11px] text-yellow-600 dark:text-yellow-400 font-semibold uppercase tracking-wider block mb-1">سطح: سخت</span>
+                            <h4 class="text-base font-bold">ثبت نام در وال گلد با کد معرف ما</h4>
+                        </div>
                     </div>
-                    <div>
-                        <span class="text-[11px] text-yellow-400 font-semibold uppercase tracking-wider block mb-1">سطح: سخت</span>
-                        <h4 class="text-base font-bold text-white">ثبت نام در وال گلد با کد معرف ما</h4>
-                    </div>
+                    <span class="bg-amber-500/10 text-amber-600 dark:text-amber-400 text-xs font-extrabold px-3.5 py-1.5 rounded-full border border-amber-500/20 self-start">۵,۰۰۰ تومان</span>
                 </div>
-                <span class="bg-amber-500/10 text-amber-400 text-xs font-extrabold px-3.5 py-1.5 rounded-full border border-amber-500/20 self-start">۵,۰۰۰ تومان</span>
-            </div>
-            <p class="text-xs text-slate-300 mb-3 leading-relaxed">
-                    <strong class="text-amber-400 font-semibold">نکته مهم:</strong> شما با کد معرف ما در وال گلد ثبت نام خواهید کرد. اگر از قبل در وال گلد حساب دارید شما نمیتوانید این ماموریت رو انجام بدهید.
+                <p class="text-xs text-slate-600 dark:text-slate-300 mb-3 leading-relaxed">
+                    <strong class="text-amber-600 dark:text-amber-400 font-semibold">نکته مهم:</strong> شما با کد معرف ما در وال گلد ثبت نام خواهید کرد. اگر از قبل در وال گلد حساب دارید شما نمیتوانید این ماموریت رو انجام بدهید.
                 </p>
-                <div class="bg-slate-900/70 rounded-2xl p-3.5 mb-4 text-xs text-slate-300 border border-slate-800/80 leading-relaxed">
+                <div class="bg-slate-50 dark:bg-slate-900/70 rounded-2xl p-3.5 mb-4 text-xs text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800/80 leading-relaxed">
                     از دکمه زیر وارد شده و مراحل ثبت نام در وال گلد رو تکمیل کنید. شما باید با کد معرف ما ثبت نام کنید. برای این کار باید حتما از دکمه زیر وارد بشید. در این کد دعوت شما بعد ثبت نام ۱ سوت جایزه هم میگیرید.
                 </div>
-                <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-800/80 text-xs">
-                    <span class="text-slate-400 flex items-center gap-1.5"><svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>اعتبار: تا پایان سال ۱۴۰۵</span>
+                <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-200 dark:border-slate-800/80 text-xs">
+                    <span class="text-slate-500 dark:text-slate-400 flex items-center gap-1.5"><svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>اعتبار: تا پایان سال ۱۴۰۵</span>
                     <div class="flex items-center gap-2.5 w-full sm:w-auto">
-                        <button onclick="openGuide('ثبت نام در وال گلد با کد معرف ما', 'از دکمه زیر وارد شده و مراحل ثبت نام در وال گلد رو تکمیل کنید. شما باید با کد معرف ما ثبت نام کنید. برای این کار باید حتما از دکمه زیر وارد بشید. در این کد دعوت شما بعد ثبت نام ۱ سوت جایزه هم میگیرید.', 'https://wallgold.ir/app/login?referralCode=dvPkA5')" class="flex-1 sm:flex-none bg-slate-800 hover:bg-slate-700 text-slate-200 px-4 py-2.5 rounded-xl font-medium transition flex items-center justify-center gap-1.5 border border-slate-700/50">
-                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        <button onclick="openGuide('ثبت نام در وال گلد با کد معرف ما', 'از دکمه زیر وارد شده و مراحل ثبت نام در وال گلد رو تکمیل کنید. شما باید با کد معرف ما ثبت نام کنید. برای این کار باید حتما از دکمه زیر وارد بشید. در این کد دعوت شما بعد ثبت نام ۱ سوت جایزه هم میگیرید.', 'https://wallgold.ir/app/login?referralCode=dvPkA5')" class="flex-1 sm:flex-none bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 px-4 py-2.5 rounded-xl font-medium transition flex items-center justify-center gap-1.5 border border-slate-200 dark:border-slate-700/50">
+                            <svg class="w-4 h-4 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                             <span>انجام مأموریت</span>
                         </button>
-                        <a href="https://survey.porsline.ir/s/tRWd41G2" target="_blank" class="flex-1 sm:flex-none bg-amber-500 hover:bg-amber-600 text-slate-950 px-5 py-2.5 rounded-xl font-bold transition shadow-sm flex items-center justify-center gap-1.5">
+                        <button onclick="openEmbeddedModal('https://survey.porsline.ir/s/tRWd41G2', 'ثبت در صف بررسی - وال گلد')" class="flex-1 sm:flex-none bg-amber-500 hover:bg-amber-600 text-slate-950 px-5 py-2.5 rounded-xl font-bold transition shadow-sm flex items-center justify-center gap-1.5">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
                             <span>ثبت در صف بررسی (انجام دادم)</span>
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
 
             <!-- مأموریت ۱: تکمیل پرسشنامه -->
-        <div class="bg-cardbg border border-slate-800 rounded-3xl p-6 custom-shadow hover:border-slate-700 transition duration-300 relative group">
-            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-t-3xl opacity-0 group-hover:opacity-100 transition"></div>
-            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
-                <div class="flex items-start gap-3.5">
-                    <div class="w-10 h-10 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0 text-blue-400 mt-0.5">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            <div class="mission-card bg-white dark:bg-cardbg border border-slate-200 dark:border-slate-800 rounded-3xl p-6 custom-shadow hover:border-slate-300 dark:hover:border-slate-700 transition duration-300 relative group" data-level="آسان" data-reward="1000">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-t-3xl opacity-0 group-hover:opacity-100 transition"></div>
+                <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
+                    <div class="flex items-start gap-3.5">
+                        <div class="w-10 h-10 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0 text-blue-500 dark:text-blue-400 mt-0.5">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                        </div>
+                        <div>
+                            <span class="text-[11px] text-blue-600 dark:text-blue-400 font-semibold uppercase tracking-wider block mb-1">سطح: آسان</span>
+                            <h4 class="text-base font-bold">تکمیل پرسشنامه</h4>
+                        </div>
                     </div>
-                    <div>
-                        <span class="text-[11px] text-blue-400 font-semibold uppercase tracking-wider block mb-1">سطح: آسان</span>
-                        <h4 class="text-base font-bold text-white">تکمیل پرسشنامه</h4>
-                    </div>
+                    <span class="bg-amber-500/10 text-amber-600 dark:text-amber-400 text-xs font-extrabold px-3.5 py-1.5 rounded-full border border-amber-500/20 self-start">۱,۰۰۰ تومان</span>
                 </div>
-                <span class="bg-amber-500/10 text-amber-400 text-xs font-extrabold px-3.5 py-1.5 rounded-full border border-amber-500/20 self-start">۱,۰۰۰ تومان</span>
-            </div>
-            <p class="text-xs text-slate-300 mb-3 leading-relaxed">
-                    <strong class="text-amber-400 font-semibold">نکته مهم:</strong> باید پرسشنامه رو به صورت کامل تکمیل کنید.
+                <p class="text-xs text-slate-600 dark:text-slate-300 mb-3 leading-relaxed">
+                    <strong class="text-amber-600 dark:text-amber-400 font-semibold">نکته مهم:</strong> باید پرسشنامه رو به صورت کامل تکمیل کنید.
                 </p>
-                <div class="bg-slate-900/70 rounded-2xl p-3.5 mb-4 text-xs text-slate-300 border border-slate-800/80 leading-relaxed">
+                <div class="bg-slate-50 dark:bg-slate-900/70 rounded-2xl p-3.5 mb-4 text-xs text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800/80 leading-relaxed">
                     از دکمه زیر وارد شده و سوالات را پاسخ دهید و نهایت و بعد از اتمام سوالات دکمه ارسال را بزنید.
                 </div>
-                <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-800/80 text-xs">
-                    <span class="text-slate-400 flex items-center gap-1.5"><svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>اعتبار: تا پایان سال ۱۴۰۵</span>
+                <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-200 dark:border-slate-800/80 text-xs">
+                    <span class="text-slate-500 dark:text-slate-400 flex items-center gap-1.5"><svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>اعتبار: تا پایان سال ۱۴۰۵</span>
                     <div class="flex items-center gap-2.5 w-full sm:w-auto">
-                        <button onclick="openGuide('تکمیل پرسشنامه', 'از دکمه زیر وارد شده و سوالات را پاسخ دهید و نهایت و بعد از اتمام سوالات دکمه ارسال را بزنید.', 'https://survey.porsline.ir/s/rKEwmcDX')" class="flex-1 sm:flex-none bg-slate-800 hover:bg-slate-700 text-slate-200 px-4 py-2.5 rounded-xl font-medium transition flex items-center justify-center gap-1.5 border border-slate-700/50">
-                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        <button onclick="openGuide('تکمیل پرسشنامه', 'از دکمه زیر وارد شده و سوالات را پاسخ دهید و نهایت و بعد از اتمام سوالات دکمه ارسال را بزنید.', 'https://survey.porsline.ir/s/rKEwmcDX')" class="flex-1 sm:flex-none bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 px-4 py-2.5 rounded-xl font-medium transition flex items-center justify-center gap-1.5 border border-slate-200 dark:border-slate-700/50">
+                            <svg class="w-4 h-4 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                             <span>انجام مأموریت</span>
                         </button>
-                        <a href="https://survey.porsline.ir/s/t0p2PRsc" target="_blank" class="flex-1 sm:flex-none bg-amber-500 hover:bg-amber-600 text-slate-950 px-5 py-2.5 rounded-xl font-bold transition shadow-sm flex items-center justify-center gap-1.5">
+                        <button onclick="openEmbeddedModal('https://survey.porsline.ir/s/t0p2PRsc', 'ثبت در صف بررسی - پرسشنامه')" class="flex-1 sm:flex-none bg-amber-500 hover:bg-amber-600 text-slate-950 px-5 py-2.5 rounded-xl font-bold transition shadow-sm flex items-center justify-center gap-1.5">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
                             <span>ثبت در صف بررسی (انجام دادم)</span>
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
 
             <!-- مأموریت: پاسخ به سوالات جهت بهبود یاشار (NPS) -->
-        <div class="bg-cardbg border border-slate-800 rounded-3xl p-6 custom-shadow hover:border-slate-700 transition duration-300 relative group">
-            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-sky-500 to-indigo-600 rounded-t-3xl opacity-0 group-hover:opacity-100 transition"></div>
-            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
-                <div class="flex items-start gap-3.5">
-                    <div class="w-10 h-10 rounded-2xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center shrink-0 text-sky-400 mt-0.5">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            <div class="mission-card bg-white dark:bg-cardbg border border-slate-200 dark:border-slate-800 rounded-3xl p-6 custom-shadow hover:border-slate-300 dark:hover:border-slate-700 transition duration-300 relative group" data-level="آسان" data-reward="1000">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-sky-500 to-indigo-600 rounded-t-3xl opacity-0 group-hover:opacity-100 transition"></div>
+                <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
+                    <div class="flex items-start gap-3.5">
+                        <div class="w-10 h-10 rounded-2xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center shrink-0 text-sky-500 dark:text-sky-400 mt-0.5">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                        </div>
+                        <div>
+                            <span class="text-[11px] text-sky-600 dark:text-sky-400 font-semibold uppercase tracking-wider block mb-1">سطح: آسان</span>
+                            <h4 class="text-base font-bold">پاسخ به سوالات جهت بهبود یاشار (NPS)</h4>
+                        </div>
                     </div>
-                    <div>
-                        <span class="text-[11px] text-sky-400 font-semibold uppercase tracking-wider block mb-1">سطح: آسان</span>
-                        <h4 class="text-base font-bold text-white">پاسخ به سوالات جهت بهبود یاشار (NPS)</h4>
-                    </div>
+                    <span class="bg-amber-500/10 text-amber-600 dark:text-amber-400 text-xs font-extrabold px-3.5 py-1.5 rounded-full border border-amber-500/20 self-start">۱,۰۰۰ تومان</span>
                 </div>
-                <span class="bg-amber-500/10 text-amber-400 text-xs font-extrabold px-3.5 py-1.5 rounded-full border border-amber-500/20 self-start">۱,۰۰۰ تومان</span>
-            </div>
-            <p class="text-xs text-slate-300 mb-3 leading-relaxed">
-                    <strong class="text-amber-400 font-semibold">نکته مهم:</strong> باید پرسشنامه رو به صورت کامل تکمیل کنید.
+                <p class="text-xs text-slate-600 dark:text-slate-300 mb-3 leading-relaxed">
+                    <strong class="text-amber-600 dark:text-amber-400 font-semibold">نکته مهم:</strong> باید پرسشنامه رو به صورت کامل تکمیل کنید.
                 </p>
-                <div class="bg-slate-900/70 rounded-2xl p-3.5 mb-4 text-xs text-slate-300 border border-slate-800/80 leading-relaxed">
+                <div class="bg-slate-50 dark:bg-slate-900/70 rounded-2xl p-3.5 mb-4 text-xs text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800/80 leading-relaxed">
                     از دکمه زیر وارد شده و سوالات را پاسخ دهید و نهایت و بعد از اتمام سوالات دکمه ارسال را بزنید.
                 </div>
-                <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-800/80 text-xs">
-                    <span class="text-slate-400 flex items-center gap-1.5"><svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>اعتبار: تا پایان سال ۱۴۰۵</span>
+                <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-200 dark:border-slate-800/80 text-xs">
+                    <span class="text-slate-500 dark:text-slate-400 flex items-center gap-1.5"><svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>اعتبار: تا پایان سال ۱۴۰۵</span>
                     <div class="flex items-center gap-2.5 w-full sm:w-auto">
-                        <button onclick="openGuide('پاسخ به سوالات جهت بهبود یاشار (NPS)', 'از دکمه زیر وارد شده و سوالات را پاسخ دهید و نهایت و بعد از اتمام سوالات دکمه ارسال را بزنید.', 'https://survey.porsline.ir/s/Kq5D8pdV')" class="flex-1 sm:flex-none bg-slate-800 hover:bg-slate-700 text-slate-200 px-4 py-2.5 rounded-xl font-medium transition flex items-center justify-center gap-1.5 border border-slate-700/50">
-                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        <button onclick="openGuide('پاسخ به سوالات جهت بهبود یاشار (NPS)', 'از دکمه زیر وارد شده و سوالات را پاسخ دهید و نهایت و بعد از اتمام سوالات دکمه ارسال را بزنید.', 'https://survey.porsline.ir/s/Kq5D8pdV')" class="flex-1 sm:flex-none bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 px-4 py-2.5 rounded-xl font-medium transition flex items-center justify-center gap-1.5 border border-slate-200 dark:border-slate-700/50">
+                            <svg class="w-4 h-4 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                             <span>انجام مأموریت</span>
                         </button>
-                        <a href="https://survey.porsline.ir/s/t0p2PRsc" target="_blank" class="flex-1 sm:flex-none bg-amber-500 hover:bg-amber-600 text-slate-950 px-5 py-2.5 rounded-xl font-bold transition shadow-sm flex items-center justify-center gap-1.5">
+                        <button onclick="openEmbeddedModal('https://survey.porsline.ir/s/t0p2PRsc', 'ثبت در صف بررسی - NPS')" class="flex-1 sm:flex-none bg-amber-500 hover:bg-amber-600 text-slate-950 px-5 py-2.5 rounded-xl font-bold transition shadow-sm flex items-center justify-center gap-1.5">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
                             <span>ثبت در صف بررسی (انجام دادم)</span>
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
 
             <!-- مأموریت: ثبت نام در فروشگاه یاشار -->
-        <div class="bg-cardbg border border-slate-800 rounded-3xl p-6 custom-shadow hover:border-slate-700 transition duration-300 relative group">
-            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-t-3xl opacity-0 group-hover:opacity-100 transition"></div>
-            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
-                <div class="flex items-start gap-3.5">
-                    <div class="w-10 h-10 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center shrink-0 text-purple-400 mt-0.5">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+            <div class="mission-card bg-white dark:bg-cardbg border border-slate-200 dark:border-slate-800 rounded-3xl p-6 custom-shadow hover:border-slate-300 dark:hover:border-slate-700 transition duration-300 relative group" data-level="متوسط" data-reward="1000">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-t-3xl opacity-0 group-hover:opacity-100 transition"></div>
+                <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
+                    <div class="flex items-start gap-3.5">
+                        <div class="w-10 h-10 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center shrink-0 text-purple-500 dark:text-purple-400 mt-0.5">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+                        </div>
+                        <div>
+                            <span class="text-[11px] text-purple-600 dark:text-purple-400 font-semibold uppercase tracking-wider block mb-1">سطح: متوسط</span>
+                            <h4 class="text-base font-bold">ثبت نام در فروشگاه اینترنتی یاشار</h4>
+                        </div>
                     </div>
-                    <div>
-                        <span class="text-[11px] text-purple-400 font-semibold uppercase tracking-wider block mb-1">سطح: متوسط</span>
-                        <h4 class="text-base font-bold text-white">ثبت نام در فروشگاه اینترنتی یاشار</h4>
-                    </div>
+                    <span class="bg-amber-500/10 text-amber-600 dark:text-amber-400 text-xs font-extrabold px-3.5 py-1.5 rounded-full border border-amber-500/20 self-start">۱,۰۰۰ تومان</span>
                 </div>
-                <span class="bg-amber-500/10 text-amber-400 text-xs font-extrabold px-3.5 py-1.5 rounded-full border border-amber-500/20 self-start">۱,۰۰۰ تومان</span>
-            </div>
-            <p class="text-xs text-slate-300 mb-3 leading-relaxed">
-                    <strong class="text-amber-400 font-semibold">نکته مهم:</strong> اگر از مدت ثبت نام بیش از یک هفته گذشته باشه نمیشه جایزه رو گرفت.
+                <p class="text-xs text-slate-600 dark:text-slate-300 mb-3 leading-relaxed">
+                    <strong class="text-amber-600 dark:text-amber-400 font-semibold">نکته مهم:</strong> اگر از مدت ثبت نام بیش از یک هفته گذشته باشه نمیشه جایزه رو گرفت.
                 </p>
-                <div class="bg-slate-900/70 rounded-2xl p-3.5 mb-4 text-xs text-slate-300 border border-slate-800/80 leading-relaxed">
+                <div class="bg-slate-50 dark:bg-slate-900/70 rounded-2xl p-3.5 mb-4 text-xs text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800/80 leading-relaxed">
                     از دکمه زیر وارد صفحه ثبت نام شده و شماره تلفن خود را وارد کرده و دکمه ورود را بزنید سپس کد تایید ارسال شده را وارد کنید و وارد حساب شوید. مجددا وارد یاشار کلاب شده و دکمه انجام دادم را بزنید.
                 </div>
-                <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-800/80 text-xs">
-                    <span class="text-slate-400 flex items-center gap-1.5"><svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>اعتبار: تا پایان سال ۱۴۰۵</span>
+                <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-200 dark:border-slate-800/80 text-xs">
+                    <span class="text-slate-500 dark:text-slate-400 flex items-center gap-1.5"><svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>اعتبار: تا پایان سال ۱۴۰۵</span>
                     <div class="flex items-center gap-2.5 w-full sm:w-auto">
-                        <button onclick="openGuide('ثبت نام در فروشگاه اینترنتی یاشار', 'از دکمه زیر وارد صفحه ثبت نام شده و شماره تلفن خود را وارد کرده و دکمه ورود را بزنید سپس کد تایید ارسال شده را وارد کنید و وارد حساب شوید. مجددا وارد یاشار کلاب شده و دکمه انجام دادم را بزنید.', 'https://yashar-store.mydigify.app/auth/login')" class="flex-1 sm:flex-none bg-slate-800 hover:bg-slate-700 text-slate-200 px-4 py-2.5 rounded-xl font-medium transition flex items-center justify-center gap-1.5 border border-slate-700/50">
-                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        <button onclick="openGuide('ثبت نام در فروشگاه اینترنتی یاشار', 'از دکمه زیر وارد صفحه ثبت نام شده و شماره تلفن خود را وارد کرده و دکمه ورود را بزنید سپس کد تایید ارسال شده را وارد کنید و وارد حساب شوید. مجددا وارد یاشار کلاب شده و دکمه انجام دادم را بزنید.', 'https://yashar-store.mydigify.app/auth/login')" class="flex-1 sm:flex-none bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 px-4 py-2.5 rounded-xl font-medium transition flex items-center justify-center gap-1.5 border border-slate-200 dark:border-slate-700/50">
+                            <svg class="w-4 h-4 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                             <span>انجام مأموریت</span>
                         </button>
-                        <a href="https://survey.porsline.ir/s/j2TGwEmv" target="_blank" class="flex-1 sm:flex-none bg-amber-500 hover:bg-amber-600 text-slate-950 px-5 py-2.5 rounded-xl font-bold transition shadow-sm flex items-center justify-center gap-1.5">
+                        <button onclick="openEmbeddedModal('https://survey.porsline.ir/s/j2TGwEmv', 'ثبت در صف بررسی - ثبت نام فروشگاه')" class="flex-1 sm:flex-none bg-amber-500 hover:bg-amber-600 text-slate-950 px-5 py-2.5 rounded-xl font-bold transition shadow-sm flex items-center justify-center gap-1.5">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
                             <span>ثبت در صف بررسی (انجام دادم)</span>
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
 
             <!-- مأموریت: ثبت دیدگاه برای یک محصول -->
-        <div class="bg-cardbg border border-slate-800 rounded-3xl p-6 custom-shadow hover:border-slate-700 transition duration-300 relative group">
-            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-t-3xl opacity-0 group-hover:opacity-100 transition"></div>
-            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
-                <div class="flex items-start gap-3.5">
-                    <div class="w-10 h-10 rounded-2xl bg-teal-500/10 border border-teal-500/20 flex items-center justify-center shrink-0 text-teal-400 mt-0.5">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <div class="mission-card bg-white dark:bg-cardbg border border-slate-200 dark:border-slate-800 rounded-3xl p-6 custom-shadow hover:border-slate-300 dark:hover:border-slate-700 transition duration-300 relative group" data-level="متوسط" data-reward="2000">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-t-3xl opacity-0 group-hover:opacity-100 transition"></div>
+                <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
+                    <div class="flex items-start gap-3.5">
+                        <div class="w-10 h-10 rounded-2xl bg-teal-500/10 border border-teal-500/20 flex items-center justify-center shrink-0 text-teal-500 dark:text-teal-400 mt-0.5">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                        </div>
+                        <div>
+                            <span class="text-[11px] text-teal-600 dark:text-teal-400 font-semibold uppercase tracking-wider block mb-1">سطح: متوسط</span>
+                            <h4 class="text-base font-bold">ثبت دیدگاه برای یک محصول در فروشگاه اینترنتی یاشار</h4>
+                        </div>
                     </div>
-                    <div>
-                        <span class="text-[11px] text-teal-400 font-semibold uppercase tracking-wider block mb-1">سطح: متوسط</span>
-                        <h4 class="text-base font-bold text-white">ثبت دیدگاه برای یک محصول در فروشگاه اینترنتی یاشار</h4>
-                    </div>
+                    <span class="bg-amber-500/10 text-amber-600 dark:text-amber-400 text-xs font-extrabold px-3.5 py-1.5 rounded-full border border-amber-500/20 self-start">۲,۰۰۰ تومان</span>
                 </div>
-                <span class="bg-amber-500/10 text-amber-400 text-xs font-extrabold px-3.5 py-1.5 rounded-full border border-amber-500/20 self-start">۲,۰۰۰ تومان</span>
-            </div>
-            <p class="text-xs text-slate-300 mb-3 leading-relaxed">
-                    <strong class="text-amber-400 font-semibold">نکته مهم:</strong> اگر از مدت ثبت دیدگاه بیش از یک هفته گذشته باشه نمیشه جایزه رو گرفت و همچنین شما فقط میتوانید برای کالاهایی که خریداری کرده‌اید دیدگاه ثبت کنید.
+                <p class="text-xs text-slate-600 dark:text-slate-300 mb-3 leading-relaxed">
+                    <strong class="text-amber-600 dark:text-amber-400 font-semibold">نکته مهم:</strong> اگر از مدت ثبت دیدگاه بیش از یک هفته گذشته باشه نمیشه جایزه رو گرفت و همچنین شما فقط میتوانید برای کالاهایی که خریداری کرده‌اید دیدگاه ثبت کنید.
                 </p>
-                <div class="bg-slate-900/70 rounded-2xl p-3.5 mb-4 text-xs text-slate-300 border border-slate-800/80 leading-relaxed">
+                <div class="bg-slate-50 dark:bg-slate-900/70 rounded-2xl p-3.5 mb-4 text-xs text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800/80 leading-relaxed">
                     از دکمه زیر وارد شده و وارد بخش دیدگاه‌ها شوید. دقت کنید شما فقط میتوانید برای محصولاتی که خریداری کردید دیدگاه ثبت کنید. مجددا وارد یاشار کلاب شده و دکمه انجام دادم را بزنید.
                 </div>
-                <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-800/80 text-xs">
-                    <span class="text-slate-400 flex items-center gap-1.5"><svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>اعتبار: تا پایان سال ۱۴۰۵</span>
+                <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-200 dark:border-slate-800/80 text-xs">
+                    <span class="text-slate-500 dark:text-slate-400 flex items-center gap-1.5"><svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>اعتبار: تا پایان سال ۱۴۰۵</span>
                     <div class="flex items-center gap-2.5 w-full sm:w-auto">
-                        <button onclick="openGuide('ثبت دیدگاه برای یک محصول در فروشگاه اینترنتی یاشار', 'از دکمه زیر وارد شده و وارد بخش دیدگاه ها شوید. دقت کنید شما فقط میتوانید برای محصولاتی که خریداری کردید دیدگاه ثبت کنید. مجددا وارد یاشار کلاب شده و دکمه انجام دادم را بزنید.', 'https://yashar-store.mydigify.app/auth/login')" class="flex-1 sm:flex-none bg-slate-800 hover:bg-slate-700 text-slate-200 px-4 py-2.5 rounded-xl font-medium transition flex items-center justify-center gap-1.5 border border-slate-700/50">
-                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        <button onclick="openGuide('ثبت دیدگاه برای یک محصول در فروشگاه اینترنتی یاشار', 'از دکمه زیر وارد شده و وارد بخش دیدگاه ها شوید. دقت کنید شما فقط میتوانید برای محصولاتی که خریداری کردید دیدگاه ثبت کنید. مجددا وارد یاشار کلاب شده و دکمه انجام دادم را بزنید.', 'https://yashar-store.mydigify.app/auth/login')" class="flex-1 sm:flex-none bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 px-4 py-2.5 rounded-xl font-medium transition flex items-center justify-center gap-1.5 border border-slate-200 dark:border-slate-700/50">
+                            <svg class="w-4 h-4 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                             <span>انجام مأموریت</span>
                         </button>
-                        <a href="https://survey.porsline.ir/s/wGz1Pi0U" target="_blank" class="flex-1 sm:flex-none bg-amber-500 hover:bg-amber-600 text-slate-950 px-5 py-2.5 rounded-xl font-bold transition shadow-sm flex items-center justify-center gap-1.5">
+                        <button onclick="openEmbeddedModal('https://survey.porsline.ir/s/wGz1Pi0U', 'ثبت در صف بررسی - دیدگاه محصول')" class="flex-1 sm:flex-none bg-amber-500 hover:bg-amber-600 text-slate-950 px-5 py-2.5 rounded-xl font-bold transition shadow-sm flex items-center justify-center gap-1.5">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
                             <span>ثبت در صف بررسی (انجام دادم)</span>
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
 
             <!-- مأموریت: ثبت سفارش از فروشگاه یاشار -->
-        <div class="bg-cardbg border border-slate-800 rounded-3xl p-6 custom-shadow hover:border-slate-700 transition duration-300 relative group">
-            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-t-3xl opacity-0 group-hover:opacity-100 transition"></div>
-            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
-                <div class="flex items-start gap-3.5">
-                    <div class="w-10 h-10 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0 text-emerald-400 mt-0.5">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            <div class="mission-card bg-white dark:bg-cardbg border border-slate-200 dark:border-slate-800 rounded-3xl p-6 custom-shadow hover:border-slate-300 dark:hover:border-slate-700 transition duration-300 relative group" data-level="سخت" data-reward="5000">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-t-3xl opacity-0 group-hover:opacity-100 transition"></div>
+                <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
+                    <div class="flex items-start gap-3.5">
+                        <div class="w-10 h-10 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0 text-emerald-500 dark:text-emerald-400 mt-0.5">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                        </div>
+                        <div>
+                            <span class="text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold uppercase tracking-wider block mb-1">سطح: سخت</span>
+                            <h4 class="text-base font-bold">ثبت سفارش از فروشگاه اینترنتی یاشار</h4>
+                        </div>
                     </div>
-                    <div>
-                        <span class="text-[11px] text-emerald-400 font-semibold uppercase tracking-wider block mb-1">سطح: سخت</span>
-                        <h4 class="text-base font-bold text-white">ثبت سفارش از فروشگاه اینترنتی یاشار</h4>
-                    </div>
+                    <span class="bg-amber-500/10 text-amber-600 dark:text-amber-400 text-xs font-extrabold px-3.5 py-1.5 rounded-full border border-amber-500/20 self-start">۵,۰۰۰ تومان</span>
                 </div>
-                <span class="bg-amber-500/10 text-amber-400 text-xs font-extrabold px-3.5 py-1.5 rounded-full border border-amber-500/20 self-start">۵,۰۰۰ تومان</span>
-            </div>
-            <p class="text-xs text-slate-300 mb-3 leading-relaxed">
-                    <strong class="text-amber-400 font-semibold">نکته مهم:</strong> اگر از زمان خرید بیش از دو ماه گذشته باشه نمیشه جایزه رو گرفت و همچنین جایزه پس از دریافت مرسوله و اتمام مهلت مرجوعی قابل دریافت هست.
+                <p class="text-xs text-slate-600 dark:text-slate-300 mb-3 leading-relaxed">
+                    <strong class="text-amber-600 dark:text-amber-400 font-semibold">نکته مهم:</strong> اگر از زمان خرید بیش از دو ماه گذشته باشه نمیشه جایزه رو گرفت و همچنین جایزه پس از دریافت مرسوله و اتمام مهلت مرجوعی قابل دریافت هست.
                 </p>
-                <div class="bg-slate-900/70 rounded-2xl p-3.5 mb-4 text-xs text-slate-300 border border-slate-800/80 leading-relaxed">
+                <div class="bg-slate-50 dark:bg-slate-900/70 rounded-2xl p-3.5 mb-4 text-xs text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800/80 leading-relaxed">
                     از دکمه زیر وارد فروشگاه اینترنتی یاشار شوید و خرید خود را انجام دهید. در صورتی که در انجام خرید مشکل دارید مقاله راهنمای خرید را مطالعه فرمایید. <br>
-                    <a href="https://yashar-store.mydigify.app/information/buy-help" target="_blank" class="text-amber-400 underline mt-1.5 inline-flex items-center gap-1 font-medium hover:text-amber-300">
+                    <a href="https://yashar-store.mydigify.app/information/buy-help" target="_blank" class="text-amber-600 dark:text-amber-400 underline mt-1.5 inline-flex items-center gap-1 font-medium hover:text-amber-500">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
                         مشاهده مقاله راهنمای خرید
                     </a>
                 </div>
-                <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-800/80 text-xs">
-                    <span class="text-slate-400 flex items-center gap-1.5"><svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>اعتبار: تا پایان سال ۱۴۰۵</span>
+                <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-200 dark:border-slate-800/80 text-xs">
+                    <span class="text-slate-500 dark:text-slate-400 flex items-center gap-1.5"><svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>اعتبار: تا پایان سال ۱۴۰۵</span>
                     <div class="flex items-center gap-2.5 w-full sm:w-auto">
-                        <button onclick="openGuide('ثبت سفارش از فروشگاه اینترنتی یاشار', 'از دکمه زیر وارد فروشگاه اینترنتی یاشار شوید و خرید خود را انجام دهید. در صورتی که در انجام خرید مشکل دارید مقاله راهنمای خرید را مطالعه فرمایید.', 'https://yashar-store.mydigify.app')" class="flex-1 sm:flex-none bg-slate-800 hover:bg-slate-700 text-slate-200 px-4 py-2.5 rounded-xl font-medium transition flex items-center justify-center gap-1.5 border border-slate-700/50">
-                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        <button onclick="openGuide('ثبت سفارش از فروشگاه اینترنتی یاشار', 'از دکمه زیر وارد فروشگاه اینترنتی یاشار شوید و خرید خود را انجام دهید. در صورتی که در انجام خرید مشکل دارید مقاله راهنمای خرید را مطالعه فرمایید.', 'https://yashar-store.mydigify.app')" class="flex-1 sm:flex-none bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 px-4 py-2.5 rounded-xl font-medium transition flex items-center justify-center gap-1.5 border border-slate-200 dark:border-slate-700/50">
+                            <svg class="w-4 h-4 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                             <span>انجام مأموریت</span>
                         </button>
-                        <a href="https://survey.porsline.ir/s/ldvI73oA" target="_blank" class="flex-1 sm:flex-none bg-amber-500 hover:bg-amber-600 text-slate-950 px-5 py-2.5 rounded-xl font-bold transition shadow-sm flex items-center justify-center gap-1.5">
+                        <button onclick="openEmbeddedModal('https://survey.porsline.ir/s/ldvI73oA', 'ثبت در صف بررسی - سفارش فروشگاه')" class="flex-1 sm:flex-none bg-amber-500 hover:bg-amber-600 text-slate-950 px-5 py-2.5 rounded-xl font-bold transition shadow-sm flex items-center justify-center gap-1.5">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
                             <span>ثبت در صف بررسی (انجام دادم)</span>
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
 
             <!-- مأموریت: ثبت بیش از سه سفارش در یک ماه -->
-        <div class="bg-cardbg border border-slate-800 rounded-3xl p-6 custom-shadow hover:border-slate-700 transition duration-300 relative group">
-            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500 to-amber-500 rounded-t-3xl opacity-0 group-hover:opacity-100 transition"></div>
-            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
-                <div class="flex items-start gap-3.5">
-                    <div class="w-10 h-10 rounded-2xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center shrink-0 text-orange-400 mt-0.5">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            <div class="mission-card bg-white dark:bg-cardbg border border-slate-200 dark:border-slate-800 rounded-3xl p-6 custom-shadow hover:border-slate-300 dark:hover:border-slate-700 transition duration-300 relative group" data-level="خیلی سخت" data-reward="10000">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500 to-amber-500 rounded-t-3xl opacity-0 group-hover:opacity-100 transition"></div>
+                <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
+                    <div class="flex items-start gap-3.5">
+                        <div class="w-10 h-10 rounded-2xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center shrink-0 text-orange-500 dark:text-orange-400 mt-0.5">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                        </div>
+                        <div>
+                            <span class="text-[11px] text-orange-600 dark:text-orange-400 font-semibold uppercase tracking-wider block mb-1">سطح: خیلی سخت</span>
+                            <h4 class="text-base font-bold">ثبت بیش از سه سفارش در یک ماه از فروشگاه اینترنتی یاشار</h4>
+                        </div>
                     </div>
-                    <div>
-                        <span class="text-[11px] text-orange-400 font-semibold uppercase tracking-wider block mb-1">سطح: خیلی سخت</span>
-                        <h4 class="text-base font-bold text-white">ثبت بیش از سه سفارش در یک ماه از فروشگاه اینترنتی یاشار</h4>
-                    </div>
+                    <span class="bg-amber-500/10 text-amber-600 dark:text-amber-400 text-xs font-extrabold px-3.5 py-1.5 rounded-full border border-amber-500/20 self-start">۱۰,۰۰۰ تومان</span>
                 </div>
-                <span class="bg-amber-500/10 text-amber-400 text-xs font-extrabold px-3.5 py-1.5 rounded-full border border-amber-500/20 self-start">۱۰,۰۰۰ تومان</span>
-            </div>
-            <p class="text-xs text-slate-300 mb-3 leading-relaxed">
-                    <strong class="text-amber-400 font-semibold">نکته مهم:</strong> اگر از زمان خرید بیش از یک ماه گذشته باشه نمیشه جایزه رو گرفت و همچنین جایزه پس از دریافت مرسوله و اتمام مهلت مرجوعی قابل دریافت هست.
+                <p class="text-xs text-slate-600 dark:text-slate-300 mb-3 leading-relaxed">
+                    <strong class="text-amber-600 dark:text-amber-400 font-semibold">نکته مهم:</strong> اگر از زمان خرید بیش از یک ماه گذشته باشه نمیشه جایزه رو گرفت و همچنین جایزه پس از دریافت مرسوله و اتمام مهلت مرجوعی قابل دریافت هست.
                 </p>
-                <div class="bg-slate-900/70 rounded-2xl p-3.5 mb-4 text-xs text-slate-300 border border-slate-800/80 leading-relaxed">
+                <div class="bg-slate-50 dark:bg-slate-900/70 rounded-2xl p-3.5 mb-4 text-xs text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800/80 leading-relaxed">
                     از دکمه زیر وارد فروشگاه اینترنتی یاشار شوید و خرید خود را انجام دهید. در صورتی که در انجام خرید مشکل دارید مقاله راهنمای خرید را مطالعه فرمایید. <br>
-                    <a href="https://yashar-store.mydigify.app/information/buy-help" target="_blank" class="text-amber-400 underline mt-1.5 inline-flex items-center gap-1 font-medium hover:text-amber-300">
+                    <a href="https://yashar-store.mydigify.app/information/buy-help" target="_blank" class="text-amber-600 dark:text-amber-400 underline mt-1.5 inline-flex items-center gap-1 font-medium hover:text-amber-500">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
                         مشاهده مقاله راهنمای خرید
                     </a>
                 </div>
-                <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-800/80 text-xs">
-                    <span class="text-slate-400 flex items-center gap-1.5"><svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>اعتبار: تا پایان سال ۱۴۰۵</span>
+                <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-200 dark:border-slate-800/80 text-xs">
+                    <span class="text-slate-500 dark:text-slate-400 flex items-center gap-1.5"><svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>اعتبار: تا پایان سال ۱۴۰۵</span>
                     <div class="flex items-center gap-2.5 w-full sm:w-auto">
-                        <button onclick="openGuide('ثبت بیش از سه سفارش در یک ماه از فروشگاه اینترنتی یاشار', 'از دکمه زیر وارد فروشگاه اینترنتی یاشار شوید و خرید خود را انجام دهید. در صورتی که در انجام خرید مشکل دارید مقاله راهنمای خرید را مطالعه فرمایید.', 'https://yashar-store.mydigify.app')" class="flex-1 sm:flex-none bg-slate-800 hover:bg-slate-700 text-slate-200 px-4 py-2.5 rounded-xl font-medium transition flex items-center justify-center gap-1.5 border border-slate-700/50">
-                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        <button onclick="openGuide('ثبت بیش از سه سفارش در یک ماه از فروشگاه اینترنتی یاشار', 'از دکمه زیر وارد فروشگاه اینترنتی یاشار شوید و خرید خود را انجام دهید. در صورتی که در انجام خرید مشکل دارید مقاله راهنمای خرید را مطالعه فرمایید.', 'https://yashar-store.mydigify.app')" class="flex-1 sm:flex-none bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 px-4 py-2.5 rounded-xl font-medium transition flex items-center justify-center gap-1.5 border border-slate-200 dark:border-slate-700/50">
+                            <svg class="w-4 h-4 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                             <span>انجام مأموریت</span>
                         </button>
-                        <a href="https://survey.porsline.ir/s/P2zbj9iR" target="_blank" class="flex-1 sm:flex-none bg-amber-500 hover:bg-amber-600 text-slate-950 px-5 py-2.5 rounded-xl font-bold transition shadow-sm flex items-center justify-center gap-1.5">
+                        <button onclick="openEmbeddedModal('https://survey.porsline.ir/s/P2zbj9iR', 'ثبت در صف بررسی - ۳ سفارش')" class="flex-1 sm:flex-none bg-amber-500 hover:bg-amber-600 text-slate-950 px-5 py-2.5 rounded-xl font-bold transition shadow-sm flex items-center justify-center gap-1.5">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
                             <span>ثبت در صف بررسی (انجام دادم)</span>
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
 
             <!-- مأموریت: دعوت اولین دوست به یاشار دیزاین -->
-        <div class="bg-cardbg border border-slate-800 rounded-3xl p-6 custom-shadow hover:border-slate-700 transition duration-300 relative group">
-            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-pink-500 to-rose-500 rounded-t-3xl opacity-0 group-hover:opacity-100 transition"></div>
-            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
-                <div class="flex items-start gap-3.5">
-                    <div class="w-10 h-10 rounded-2xl bg-pink-500/10 border border-pink-500/20 flex items-center justify-center shrink-0 text-pink-400 mt-0.5">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <div class="mission-card bg-white dark:bg-cardbg border border-slate-200 dark:border-slate-800 rounded-3xl p-6 custom-shadow hover:border-slate-300 dark:hover:border-slate-700 transition duration-300 relative group" data-level="سخت" data-reward="3000">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-pink-500 to-rose-500 rounded-t-3xl opacity-0 group-hover:opacity-100 transition"></div>
+                <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
+                    <div class="flex items-start gap-3.5">
+                        <div class="w-10 h-10 rounded-2xl bg-pink-500/10 border border-pink-500/20 flex items-center justify-center shrink-0 text-pink-500 dark:text-pink-400 mt-0.5">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        </div>
+                        <div>
+                            <span class="text-[11px] text-pink-600 dark:text-pink-400 font-semibold uppercase tracking-wider block mb-1">سطح: سخت</span>
+                            <h4 class="text-base font-bold">دعوت اولین دوست به یاشار دیزاین و ثبت اولین سفارش توسط دوست شما</h4>
+                        </div>
                     </div>
-                    <div>
-                        <span class="text-[11px] text-pink-400 font-semibold uppercase tracking-wider block mb-1">سطح: سخت</span>
-                        <h4 class="text-base font-bold text-white">دعوت اولین دوست به یاشار دیزاین و ثبت اولین سفارش توسط دوست شما</h4>
-                    </div>
+                    <span class="bg-amber-500/10 text-amber-600 dark:text-amber-400 text-xs font-extrabold px-3.5 py-1.5 rounded-full border border-amber-500/20 self-start">۳,۰۰۰ تومان</span>
                 </div>
-                <span class="bg-amber-500/10 text-amber-400 text-xs font-extrabold px-3.5 py-1.5 rounded-full border border-amber-500/20 self-start">۳,۰۰۰ تومان</span>
-            </div>
-            <p class="text-xs text-slate-300 mb-3 leading-relaxed">
-                    <strong class="text-amber-400 font-semibold">نکته مهم:</strong> اگر از زمان خرید یا دعوت بیش از یک ماه گذشته باشه نمیشه جایزه رو گرفت. لازم به ذکر است جایزه یاشار دیزاین برای دعوت دوست مجزا بوده و این مورد نیز توسط یاشار دیزاین پرداخت میشود.
+                <p class="text-xs text-slate-600 dark:text-slate-300 mb-3 leading-relaxed">
+                    <strong class="text-amber-600 dark:text-amber-400 font-semibold">نکته مهم:</strong> اگر از زمان خرید یا دعوت بیش از یک ماه گذشته باشه نمیشه جایزه رو گرفت. لازم به ذکر است جایزه یاشار دیزاین برای دعوت دوست مجزا بوده و این مورد نیز توسط یاشار دیزاین پرداخت میشود.
                 </p>
-                <div class="bg-slate-900/70 rounded-2xl p-3.5 mb-4 text-xs text-slate-300 border border-slate-800/80 leading-relaxed">
+                <div class="bg-slate-50 dark:bg-slate-900/70 rounded-2xl p-3.5 mb-4 text-xs text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800/80 leading-relaxed">
                     ابتدا از طریق دکمه زیر وارد صفحه شوید و اطلاعات خود و دوست خود را کامل کنید. سپس حال به دوست خود اطلاع دهید و بعد اولین خرید دوست شما شما قادر به دریافت جایزه یاشار کلاب خواهی بود.
                 </div>
-                <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-800/80 text-xs">
-                    <span class="text-slate-400 flex items-center gap-1.5"><svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>اعتبار: تا پایان سال ۱۴۰۵</span>
+                <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-200 dark:border-slate-800/80 text-xs">
+                    <span class="text-slate-500 dark:text-slate-400 flex items-center gap-1.5"><svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>اعتبار: تا پایان سال ۱۴۰۵</span>
                     <div class="flex items-center gap-2.5 w-full sm:w-auto">
-                        <button onclick="openGuide('دعوت اولین دوست به یاشار دیزاین', 'ابتدا از طریق دکمه زیر وارد صفحه شوید و اطلاعات خود و دوست خود را کامل کنید. سپس حال به دوست خود اطلاع دهید و بعد اولین خرید دوست شما شما قادر به دریافت جایزه یاشار کلاب خواهی بود.', 'https://survey.porsline.ir/s/Lueq7JCj')" class="flex-1 sm:flex-none bg-slate-800 hover:bg-slate-700 text-slate-200 px-4 py-2.5 rounded-xl font-medium transition flex items-center justify-center gap-1.5 border border-slate-700/50">
-                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        <button onclick="openGuide('دعوت اولین دوست به یاشار دیزاین', 'ابتدا از طریق دکمه زیر وارد صفحه شوید و اطلاعات خود و دوست خود را کامل کنید. سپس حال به دوست خود اطلاع دهید و بعد اولین خرید دوست شما شما قادر به دریافت جایزه یاشار کلاب خواهی بود.', 'https://survey.porsline.ir/s/Lueq7JCj')" class="flex-1 sm:flex-none bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 px-4 py-2.5 rounded-xl font-medium transition flex items-center justify-center gap-1.5 border border-slate-200 dark:border-slate-700/50">
+                            <svg class="w-4 h-4 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                             <span>انجام مأموریت</span>
                         </button>
-                        <a href="https://survey.porsline.ir/s/QHAxpCvp" target="_blank" class="flex-1 sm:flex-none bg-amber-500 hover:bg-amber-600 text-slate-950 px-5 py-2.5 rounded-xl font-bold transition shadow-sm flex items-center justify-center gap-1.5">
+                        <button onclick="openEmbeddedModal('https://survey.porsline.ir/s/QHAxpCvp', 'ثبت در صف بررسی - دعوت دوست')" class="flex-1 sm:flex-none bg-amber-500 hover:bg-amber-600 text-slate-950 px-5 py-2.5 rounded-xl font-bold transition shadow-sm flex items-center justify-center gap-1.5">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
                             <span>ثبت در صف بررسی (انجام دادم)</span>
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
 
             <!-- مأموریت: نام‌گذاری پلتفرم جدید SaaS -->
-        <div class="bg-cardbg border border-slate-800 rounded-3xl p-6 custom-shadow hover:border-slate-700 transition duration-300 relative group">
-            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-violet-500 to-purple-600 rounded-t-3xl opacity-0 group-hover:opacity-100 transition"></div>
-            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
-                <div class="flex items-start gap-3.5">
-                    <div class="w-10 h-10 rounded-2xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center shrink-0 text-violet-400 mt-0.5">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            <div class="mission-card bg-white dark:bg-cardbg border border-slate-200 dark:border-slate-800 rounded-3xl p-6 custom-shadow hover:border-slate-300 dark:hover:border-slate-700 transition duration-300 relative group" data-level="آسان" data-reward="1000">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-violet-500 to-purple-600 rounded-t-3xl opacity-0 group-hover:opacity-100 transition"></div>
+                <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
+                    <div class="flex items-start gap-3.5">
+                        <div class="w-10 h-10 rounded-2xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center shrink-0 text-violet-500 dark:text-violet-400 mt-0.5">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                        </div>
+                        <div>
+                            <span class="text-[11px] text-violet-600 dark:text-violet-400 font-semibold uppercase tracking-wider block mb-1">سطح: آسان</span>
+                            <h4 class="text-base font-bold">نام‌گذاری پلتفرم جدید SaaS</h4>
+                        </div>
                     </div>
-                    <div>
-                        <span class="text-[11px] text-violet-400 font-semibold uppercase tracking-wider block mb-1">سطح: آسان</span>
-                        <h4 class="text-base font-bold text-white">نام‌گذاری پلتفرم جدید SaaS</h4>
-                    </div>
+                    <span class="bg-amber-500/10 text-amber-600 dark:text-amber-400 text-xs font-extrabold px-3.5 py-1.5 rounded-full border border-amber-500/20 self-start">۱,۰۰۰ تومان</span>
                 </div>
-                <span class="bg-amber-500/10 text-amber-400 text-xs font-extrabold px-3.5 py-1.5 rounded-full border border-amber-500/20 self-start">۱,۰۰۰ تومان</span>
-            </div>
-            <p class="text-xs text-slate-300 mb-3 leading-relaxed">
-                    <strong class="text-amber-400 font-semibold">نکته مهم:</strong> نام باید واقعا جذاب و طبق دستورالعمل داخل سایت انجام ماموریت باشه.
+                <p class="text-xs text-slate-600 dark:text-slate-300 mb-3 leading-relaxed">
+                    <strong class="text-amber-600 dark:text-amber-400 font-semibold">نکته مهم:</strong> نام باید واقعا جذاب و طبق دستورالعمل داخل سایت انجام ماموریت باشه.
                 </p>
-                <div class="bg-slate-900/70 rounded-2xl p-3.5 mb-4 text-xs text-slate-300 border border-slate-800/80 leading-relaxed">
+                <div class="bg-slate-50 dark:bg-slate-900/70 rounded-2xl p-3.5 mb-4 text-xs text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800/80 leading-relaxed">
                     ابتدا از طریق دکمه زیر وارد صفحه شوید و دستورالعمل را مطالعه و سپس اقدام به پیشنهاد نامی جذاب کنید. سعی کنید نام جذابی وارد کنید. بهترین نام شامل جایزه جداگانه دیگری خواهد بود.
                 </div>
-                <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-800/80 text-xs">
-                    <span class="text-slate-400 flex items-center gap-1.5"><svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>اعتبار: تا پایان سال ۱۴۰۵</span>
+                <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-200 dark:border-slate-800/80 text-xs">
+                    <span class="text-slate-500 dark:text-slate-400 flex items-center gap-1.5"><svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>اعتبار: تا پایان سال ۱۴۰۵</span>
                     <div class="flex items-center gap-2.5 w-full sm:w-auto">
-                        <button onclick="openGuide('نام‌گذاری پلتفرم جدید SaaS', 'ابتدا از طریق دکمه زیر وارد صفحه شوید و دستورالعمل را مطالعه و سپس اقدام به پیشنهاد نامی جذاب کنید. سعی کنید نام جذابی وارد کنید. بهترین نام شامل جایزه جداگانه دیگری خواهد بود.', 'https://survey.porsline.ir/s/3FdzSXNH')" class="flex-1 sm:flex-none bg-slate-800 hover:bg-slate-700 text-slate-200 px-4 py-2.5 rounded-xl font-medium transition flex items-center justify-center gap-1.5 border border-slate-700/50">
-                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        <button onclick="openGuide('نام‌گذاری پلتفرم جدید SaaS', 'ابتدا از طریق دکمه زیر وارد صفحه شوید و دستورالعمل را مطالعه و سپس اقدام به پیشنهاد نامی جذاب کنید. سعی کنید نام جذابی وارد کنید. بهترین نام شامل جایزه جداگانه دیگری خواهد بود.', 'https://survey.porsline.ir/s/3FdzSXNH')" class="flex-1 sm:flex-none bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 px-4 py-2.5 rounded-xl font-medium transition flex items-center justify-center gap-1.5 border border-slate-200 dark:border-slate-700/50">
+                            <svg class="w-4 h-4 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                             <span>انجام مأموریت</span>
                         </button>
-                        <a href="https://survey.porsline.ir/s/c9ikH1XY" target="_blank" class="flex-1 sm:flex-none bg-amber-500 hover:bg-amber-600 text-slate-950 px-5 py-2.5 rounded-xl font-bold transition shadow-sm flex items-center justify-center gap-1.5">
+                        <button onclick="openEmbeddedModal('https://survey.porsline.ir/s/c9ikH1XY', 'ثبت در صف بررسی - نام‌گذاری SaaS')" class="flex-1 sm:flex-none bg-amber-500 hover:bg-amber-600 text-slate-950 px-5 py-2.5 rounded-xl font-bold transition shadow-sm flex items-center justify-center gap-1.5">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
                             <span>ثبت در صف بررسی (انجام دادم)</span>
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
 
             <!-- مأموریت: ثبت سفارش از یاشار دیزاین -->
-        <div class="bg-cardbg border border-slate-800 rounded-3xl p-6 custom-shadow hover:border-slate-700 transition duration-300 relative group">
-            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-500 to-rose-500 rounded-t-3xl opacity-0 group-hover:opacity-100 transition"></div>
-            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
-                <div class="flex items-start gap-3.5">
-                    <div class="w-10 h-10 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center shrink-0 text-amber-400 mt-0.5">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <div class="mission-card bg-white dark:bg-cardbg border border-slate-200 dark:border-slate-800 rounded-3xl p-6 custom-shadow hover:border-slate-300 dark:hover:border-slate-700 transition duration-300 relative group" data-level="خیلی سخت" data-reward="10000">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-500 to-rose-500 rounded-t-3xl opacity-0 group-hover:opacity-100 transition"></div>
+                <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
+                    <div class="flex items-start gap-3.5">
+                        <div class="w-10 h-10 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center shrink-0 text-amber-500 dark:text-amber-400 mt-0.5">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        </div>
+                        <div>
+                            <span class="text-[11px] text-amber-600 dark:text-amber-400 font-semibold uppercase tracking-wider block mb-1">سطح: خیلی سخت</span>
+                            <h4 class="text-base font-bold">ثبت سفارش از یاشار دیزاین</h4>
+                        </div>
                     </div>
-                    <div>
-                        <span class="text-[11px] text-amber-400 font-semibold uppercase tracking-wider block mb-1">سطح: خیلی سخت</span>
-                        <h4 class="text-base font-bold text-white">ثبت سفارش از یاشار دیزاین</h4>
-                    </div>
+                    <span class="bg-amber-500/10 text-amber-600 dark:text-amber-400 text-xs font-extrabold px-3.5 py-1.5 rounded-full border border-amber-500/20 self-start">۱۰,۰۰۰ تومان</span>
                 </div>
-                <span class="bg-amber-500/10 text-amber-400 text-xs font-extrabold px-3.5 py-1.5 rounded-full border border-amber-500/20 self-start">۱۰,۰۰۰ تومان</span>
-            </div>
-            <p class="text-xs text-slate-300 mb-3 leading-relaxed">
-                    <strong class="text-amber-400 font-semibold">نکته مهم:</strong> اگر از زمان خرید بیش از دو ماه گذشته باشه نمیشه جایزه رو گرفت و همچنین نباید با دعوت دوستان ثبت سفارش کرده باشید.
+                <p class="text-xs text-slate-600 dark:text-slate-300 mb-3 leading-relaxed">
+                    <strong class="text-amber-600 dark:text-amber-400 font-semibold">نکته مهم:</strong> اگر از زمان خرید بیش از دو ماه گذشته باشه نمیشه جایزه رو گرفت و همچنین نباید با دعوت دوستان ثبت سفارش کرده باشید.
                 </p>
-                <div class="bg-slate-900/70 rounded-2xl p-3.5 mb-4 text-xs text-slate-300 border border-slate-800/80 leading-relaxed">
+                <div class="bg-slate-50 dark:bg-slate-900/70 rounded-2xl p-3.5 mb-4 text-xs text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800/80 leading-relaxed">
                     از دکمه زیر وارد یاشار دیزاین شده و خرید خود را انجام دهید. در یاشار دیزاین در انتهای سایت روی ثبت سفارش در بله کلیک و در بله سفارش خودتون رو ثبت کنید.
                 </div>
-                <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-800/80 text-xs">
-                    <span class="text-slate-400 flex items-center gap-1.5"><svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>اعتبار: تا پایان سال ۱۴۰۵</span>
+                <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-200 dark:border-slate-800/80 text-xs">
+                    <span class="text-slate-500 dark:text-slate-400 flex items-center gap-1.5"><svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>اعتبار: تا پایان سال ۱۴۰۵</span>
                     <div class="flex items-center gap-2.5 w-full sm:w-auto">
-                        <button onclick="openGuide('ثبت سفارش از یاشار دیزاین', 'از دکمه زیر وارد یاشار دیزاین شده و خرید خود را انجام دهید. در یاشار دیزاین در انتهای سایت روی ثبت سفارش در بله کلیک کنید.', 'https://yashar-1392.github.io/yashar-design/')" class="flex-1 sm:flex-none bg-slate-800 hover:bg-slate-700 text-slate-200 px-4 py-2.5 rounded-xl font-medium transition flex items-center justify-center gap-1.5 border border-slate-700/50">
-                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        <button onclick="openGuide('ثبت سفارش از یاشار دیزاین', 'از دکمه زیر وارد یاشار دیزاین شده و خرید خود را انجام دهید. در یاشار دیزاین در انتهای سایت روی ثبت سفارش در بله کلیک کنید.', 'https://yashar-1392.github.io/yashar-design/')" class="flex-1 sm:flex-none bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 px-4 py-2.5 rounded-xl font-medium transition flex items-center justify-center gap-1.5 border border-slate-200 dark:border-slate-700/50">
+                            <svg class="w-4 h-4 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                             <span>انجام مأموریت</span>
                         </button>
-                        <a href="https://survey.porsline.ir/s/ldvI73oA" target="_blank" class="flex-1 sm:flex-none bg-amber-500 hover:bg-amber-600 text-slate-950 px-5 py-2.5 rounded-xl font-bold transition shadow-sm flex items-center justify-center gap-1.5">
+                        <button onclick="openEmbeddedModal('https://survey.porsline.ir/s/ldvI73oA', 'ثبت در صف بررسی - یاشار دیزاین')" class="flex-1 sm:flex-none bg-amber-500 hover:bg-amber-600 text-slate-950 px-5 py-2.5 rounded-xl font-bold transition shadow-sm flex items-center justify-center gap-1.5">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
                             <span>ثبت در صف بررسی (انجام دادم)</span>
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
 
         </div>
+
     </main>
 
-    <footer class="bg-cardbg border-t border-slate-800 mt-16 py-8 text-center text-xs text-slate-400">
+    <footer class="bg-white dark:bg-cardbg border-t border-slate-200 dark:border-slate-800 mt-16 py-8 text-center text-xs text-slate-500 dark:text-slate-400 transition-colors duration-300">
         <div class="max-w-4xl mx-auto px-4 flex flex-col items-center gap-3">
-            <div class="flex items-center gap-2 text-slate-300 font-medium">
+            <div class="flex items-center gap-2 font-medium">
                 <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
                 سیستم بررسی و صف انتظار جوایز فعال است (پرداخت غیرآنی)
             </div>
             <p>استفاده از پلتفرم یاشار کلاب به معنای پذیرش تمامی قوانین و مقررات آن است.</p>
-            <p class="text-slate-500 text-[11px]">تمامی حقوق محفوظ است © ۱۴۰۵ - یاشار کلاب</p>
+            <p class="text-slate-400 text-[11px]">تمامی حقوق محفوظ است © ۱۴۰۵ - یاشار کلاب</p>
         </div>
     </footer>
 
+    <!-- آیکون شناور 🎧 در گوشه پایین راست -->
+    <div id="floating-survey-btn" onclick="toggleFloatingWidget()" class="fixed bottom-6 right-6 z-40 bg-gradient-to-tr from-amber-500 to-yellow-400 hover:from-amber-600 hover:to-yellow-500 text-slate-950 w-14 h-14 rounded-full shadow-2xl flex items-center justify-center cursor-pointer transform hover:scale-110 transition duration-300 font-bold text-2xl border-2 border-white dark:border-slate-900" title="پشتیبانی و نظرسنجی اختصاصی">
+        🎧
+    </div>
+
+    <!-- کادر شناور / تمام صفحه هدایت شده (آیکون 🎧) -->
+    <div id="floating-widget-modal" class="fixed inset-0 z-50 hidden items-end sm:items-end sm:justify-start sm:p-6 bg-slate-950/40 backdrop-blur-sm transition-all">
+        <div id="floating-widget-box" class="bg-white dark:bg-cardbg border border-slate-200 dark:border-slate-800 w-full sm:w-[400px] h-[85vh] sm:h-[600px] rounded-t-3xl sm:rounded-3xl shadow-2xl flex flex-col overflow-hidden transform transition-transform animate-in fade-in slide-in-from-bottom duration-300">
+            <div class="bg-slate-900 text-white px-4 py-3.5 flex items-center justify-between border-b border-slate-800">
+                <div class="flex items-center gap-2">
+                    <span class="text-lg">🎧</span>
+                    <h3 class="text-sm font-bold">پشتیبانی و نظرسنجی اختصاصی یاشار کلاب</h3>
+                </div>
+                <button onclick="toggleFloatingWidget()" class="text-slate-400 hover:text-white p-1 rounded-xl bg-slate-800 hover:bg-slate-700 transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="flex-grow w-full relative bg-slate-50 dark:bg-slate-950">
+                <iframe src="https://survey.porsline.ir/s/WCQYOc4K" class="w-full h-full border-0" title="پشتیبانی"></iframe>
+            </div>
+        </div>
+    </div>
+
     <!-- مودال راهنمای انجام مأموریت -->
     <div id="guide-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden items-center justify-center p-4 z-50">
-        <div class="bg-cardbg border border-slate-800 w-full max-w-md rounded-3xl p-6 shadow-2xl relative transform transition-all">
+        <div class="bg-white dark:bg-cardbg border border-slate-200 dark:border-slate-800 w-full max-w-md rounded-3xl p-6 shadow-2xl relative transform transition-all">
             <div class="flex items-center justify-between mb-4">
                 <div class="flex items-center gap-2">
-                    <div class="w-8 h-8 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center">
+                    <div class="w-8 h-8 rounded-xl bg-amber-500/10 text-amber-500 dark:text-amber-400 flex items-center justify-center">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
                     </div>
-                    <h3 id="modal-title" class="text-base font-bold text-white">راهنمای مأموریت</h3>
+                    <h3 id="modal-title" class="text-base font-bold text-slate-900 dark:text-white">راهنمای مأموریت</h3>
                 </div>
-                <button onclick="closeGuide()" class="text-slate-400 hover:text-white p-1 rounded-lg">
+                <button onclick="closeGuide()" class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-1 rounded-lg">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                 </button>
             </div>
-            <p id="modal-desc" class="text-xs text-slate-300 mb-6 leading-relaxed bg-slate-900/80 p-4 rounded-2xl border border-slate-800"></p>
-            <div class="flex items-center justify-end gap-3">
-                <button onclick="closeGuide()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-4 py-2.5 rounded-xl text-xs transition font-medium">بستن</button>
-                <a id="modal-link" href="#" target="_blank" class="bg-amber-500 hover:bg-amber-600 text-slate-950 px-5 py-2.5 rounded-xl text-xs font-bold transition shadow-sm flex items-center gap-1.5">
-                    <span>ورود به صفحه مأموریت</span>
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            <p id="modal-desc" class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-6 bg-slate-50 dark:bg-slate-900/60 p-4 rounded-2xl border border-slate-100 dark:border-slate-800">متن راهنما...</p>
+            <div class="flex items-center gap-3">
+                <a id="modal-link" href="#" target="_blank" class="flex-1 bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-bold py-3 px-4 rounded-xl text-center transition shadow-sm flex items-center justify-center gap-1.5">
+                    <span>ورود به لینک مأموریت</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                 </a>
+                <button onclick="closeGuide()" class="bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold py-3 px-4 rounded-xl transition">بستن</button>
             </div>
         </div>
     </div>
 
-    <!-- مودال قوانین و مقررات -->
-    <div id="rules-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden items-center justify-center p-4 z-50">
-        <div class="bg-cardbg border border-slate-800 w-full max-w-lg rounded-3xl p-6 md:p-8 shadow-2xl relative max-h-[85vh] overflow-y-auto">
-            <div class="flex items-center justify-between mb-5 pb-3 border-b border-slate-800">
-                <h3 class="text-lg font-bold text-white flex items-center gap-2.5">
-                    <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10M6 10h10"/></svg>
-                    <span>قوانین و مقررات یاشار کلاب</span>
-                </h3>
-                <button onclick="closeRulesModal()" class="text-slate-400 hover:text-white p-1 rounded-lg">
+    <!-- مودال ثبت در صف بررسی (فرم پرسلاین تعبیه شده) -->
+    <div id="embedded-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden items-center justify-center p-4 z-50">
+        <div class="bg-white dark:bg-cardbg border border-slate-200 dark:border-slate-800 w-full max-w-2xl h-[85vh] rounded-3xl shadow-2xl flex flex-col overflow-hidden relative transform transition-all">
+            <div class="bg-slate-900 text-white px-5 py-4 flex items-center justify-between border-b border-slate-800">
+                <div class="flex items-center gap-2">
+                    <div class="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
+                    <h3 id="embedded-modal-title" class="text-sm font-bold">ثبت در صف بررسی مأموریت</h3>
+                </div>
+                <button onclick="closeEmbeddedModal()" class="text-slate-400 hover:text-white p-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 transition">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                 </button>
             </div>
-            <div class="space-y-3.5 text-xs text-slate-300 leading-relaxed mb-6">
-                <div class="bg-slate-900/80 p-3.5 rounded-2xl border border-slate-800 flex items-start gap-3">
-                    <span class="w-6 h-6 rounded-lg bg-amber-500/10 text-amber-400 font-bold flex items-center justify-center shrink-0 mt-0.5">۱</span>
-                    <div><strong class="text-white block mb-0.5">صداقت اولویت اوله:</strong>همه مأموریت‌ها توسط یاشار کلاب چک می‌شه. اگه سعی کنی با اطلاعات جعلی یا اکانت‌های فیک جایزه بگیری، دسترسی‌ت محدود می‌شه.</div>
-                </div>
-                <div class="bg-slate-900/80 p-3.5 rounded-2xl border border-slate-800 flex items-start gap-3">
-                    <span class="w-6 h-6 rounded-lg bg-amber-500/10 text-amber-400 font-bold flex items-center justify-center shrink-0 mt-0.5">۲</span>
-                    <div><strong class="text-white block mb-0.5">زمان‌بندی مهمه:</strong>هر مأموریت یه بازه زمانی داره. خارج از اون بازه جایزه‌ای تعلق نمی‌گیره.</div>
-                </div>
-                <div class="bg-slate-900/80 p-3.5 rounded-2xl border border-slate-800 flex items-start gap-3">
-                    <span class="w-6 h-6 rounded-lg bg-amber-500/10 text-amber-400 font-bold flex items-center justify-center shrink-0 mt-0.5">۳</span>
-                    <div><strong class="text-white block mb-0.5">پاداش‌های نقدی:</strong>جوایز از طریق «پاکت هدیه بله» ارسال می‌شه. شماره‌ات با شماره بله یکی باشه.</div>
-                </div>
-                <div class="bg-slate-900/80 p-3.5 rounded-2xl border border-slate-800 flex items-start gap-3">
-                    <span class="w-6 h-6 rounded-lg bg-amber-500/10 text-amber-400 font-bold flex items-center justify-center shrink-0 mt-0.5">۴</span>
-                    <div><strong class="text-white block mb-0.5">تأیید مأموریت (صف بررسی):</strong>بعد از زدن «انجام دادم»، درخواست میره صف بررسی (۲۴ تا ۴۸ ساعت) و آنی نیست.</div>
-                </div>
-                <div class="bg-slate-900/80 p-3.5 rounded-2xl border border-slate-800 flex items-start gap-3">
-                    <span class="w-6 h-6 rounded-lg bg-amber-500/10 text-amber-400 font-bold flex items-center justify-center shrink-0 mt-0.5">۵</span>
-                    <div><strong class="text-white block mb-0.5">حق تغییر:</strong>یاشار کلاب حق داره مأموریت‌ها یا مقدار جایزه‌ها رو بسته به نیاز تغییر بده.</div>
-                </div>
-            </div>
-            <div class="text-center">
-                <button onclick="closeRulesModal()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 px-6 py-3 rounded-2xl text-xs font-bold transition shadow-md w-full">متوجه شدم و قوانین را می‌پذیرم</button>
+            <div class="flex-grow w-full relative bg-slate-50 dark:bg-slate-950">
+                <iframe id="embedded-iframe" src="" class="w-full h-full border-0" title="ثبت ماموریت"></iframe>
             </div>
         </div>
     </div>
 
-    <!-- اسکریپت‌ها -->
+    <!-- مودال درباره ما / راهنما / سوالات متداول (بروز شده با قوانین جدید) -->
+    <div id="info-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden items-center justify-center p-4 z-50">
+        <div class="bg-white dark:bg-cardbg border border-slate-200 dark:border-slate-800 w-full max-w-lg rounded-3xl p-6 shadow-2xl relative transform transition-all max-h-[85vh] flex flex-col">
+            <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-100 dark:border-slate-800">
+                <h3 id="info-modal-title" class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">عنوان</h3>
+                <button onclick="closeInfoModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-1 rounded-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div id="info-modal-content" class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed overflow-y-auto space-y-3 flex-grow pr-1">
+                محموا...
+            </div>
+            <div class="pt-4 mt-4 border-t border-slate-100 dark:border-slate-800 text-center">
+                <button onclick="closeInfoModal()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-bold py-2.5 px-6 rounded-xl transition shadow-sm">متوجه شدم</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- مودال پیشنهاد هوشمند مأموریت (بدون سوالات حذف‌شده و با امکان نمایش چند پیشنهاد + سلب مسئولیت) -->
+    <div id="smart-form-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden items-center justify-center p-4 z-50">
+        <div class="bg-white dark:bg-cardbg border border-slate-200 dark:border-slate-800 w-full max-w-md rounded-3xl p-6 shadow-2xl relative transform transition-all max-h-[90vh] flex flex-col">
+            <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-100 dark:border-slate-800">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                    </div>
+                    <h3 class="text-base font-bold text-slate-900 dark:text-white">پیشنهاد هوشمند مأموریت</h3>
+                </div>
+                <button onclick="closeSmartFormModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-1 rounded-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+            </div>
+            
+            <div id="smart-form-body" class="overflow-y-auto flex-grow space-y-4 pr-1 text-xs">
+                <p class="text-slate-500 dark:text-slate-400 leading-relaxed">
+                    به چند سوال کوتاه پاسخ دهید تا سیستم هوشمند ما بهترین مأموریت‌ها را برای کسب درآمد بیشتر به شما پیشنهاد دهد:
+                </p>
+                <form id="smart-questions-form" onsubmit="submitSmartForm(event)" class="space-y-4">
+                    <!-- سوال ۱ -->
+                    <div class="space-y-1.5">
+                        <label class="font-semibold block text-slate-800 dark:text-slate-200">۱. چقدر زمان در روز برای انجام مأموریت‌ها دارید؟</label>
+                        <div class="space-y-1">
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="q1" value="کم" required class="accent-amber-500"> کمتر از ۳۰ دقیقه</label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="q1" value="متوسط" class="accent-amber-500"> بین ۳۰ تا ۶۰ دقیقه</label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="q1" value="زیاد" class="accent-amber-500"> بیش از ۱ ساعت</label>
+                        </div>
+                    </div>
+                    <!-- سوال ۲ -->
+                    <div class="space-y-1.5">
+                        <label class="font-semibold block text-slate-800 dark:text-slate-200">۲. ترجیح می‌دهید روی چه نوع مأموریت‌هایی تمرکز کنید؟</label>
+                        <div class="space-y-1">
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" name="q2" value="صرافی و مالی" class="accent-amber-500"> صرافی‌های ارز دیجیتال و طلا (پاداش بالا)</label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" name="q2" value="پرسشنامه" class="accent-amber-500"> پرسشنامه‌ها و نظرسنجی‌های آسان</label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" name="q2" value="فروشگاه" class="accent-amber-500"> خرید، ثبت دیدگاه و سفارش فروشگاه</label>
+                        </div>
+                    </div>
+                    <!-- سوال ۳ -->
+                    <div class="space-y-1.5">
+                        <label class="font-semibold block text-slate-800 dark:text-slate-200">۳. میزان آشنایی شما با ثبت نام در صرافی‌ها و پلتفرم‌های مالی چقدر است؟</label>
+                        <div class="space-y-1">
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="q3" value="مبتدی" required class="accent-amber-500"> مبتدی (نیاز به راهنمایی دارم)</label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="q3" value="متوسط" class="accent-amber-500"> متوسط</label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="q3" value="حرفه ای" class="accent-amber-500"> حرفه‌ای و آشنا</label>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-slate-950 font-bold py-3 px-4 rounded-xl transition shadow-sm mt-4">
+                        دریافت پیشنهاد هوشمند مأموریت‌ها
+                    </button>
+                </form>
+            </div>
+
+            <!-- بخش نمایش نتایج تحلیل هوشمند -->
+            <div id="smart-results-container" class="hidden overflow-y-auto flex-grow space-y-4 pr-1 text-xs">
+                <div class="bg-amber-500/10 border border-amber-500/30 p-3.5 rounded-2xl text-amber-600 dark:text-amber-400 font-semibold flex items-center gap-2">
+                    <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <span>بر اساس تحلیل پاسخ‌های شما، مأموریت‌های زیر پیشنهاد می‌شوند:</span>
+                </div>
+                
+                <div id="recommended-missions-list" class="space-y-2.5">
+                    <!-- به صورت دینامیک پر می‌شود -->
+                </div>
+
+                <div class="pt-3 border-t border-slate-200 dark:border-slate-800 text-[11px] text-slate-400 italic text-center">
+                    این پیشنهادات صرفاً بر اساس پاسخ‌های شما بوده و یاشار کلاب مسئولیتی ندارد.
+                </div>
+
+                <button onclick="resetSmartForm()" class="w-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold py-2.5 px-4 rounded-xl transition">
+                    تلاش مجدد / تغییر پاسخ‌ها
+                </button>
+            </div>
+
+        </div>
+    </div>
+
     <script>
+        // تغییر تم (روشن / تیره)
+        function toggleTheme() {
+            const html = document.documentElement;
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // بارگذاری تم ذخیره شده
+        if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.classList.remove('dark');
+        }
+
+        // باز کردن مودال راهنما
         function openGuide(title, desc, link) {
-            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-title').innerText = 'راهنما: ' + title;
             document.getElementById('modal-desc').innerText = desc;
             document.getElementById('modal-link').href = link;
             document.getElementById('guide-modal').classList.remove('hidden');
             document.getElementById('guide-modal').classList.add('flex');
         }
+
         function closeGuide() {
             document.getElementById('guide-modal').classList.remove('flex');
             document.getElementById('guide-modal').classList.add('hidden');
         }
-        function openRulesModal() {
-            document.getElementById('rules-modal').classList.remove('hidden');
-            document.getElementById('rules-modal').classList.add('flex');
+
+        // باز کردن مودال ثبت در صف بررسی (پرسلاین)
+        function openEmbeddedModal(url, title) {
+            document.getElementById('embedded-modal-title').innerText = title;
+            document.getElementById('embedded-iframe').src = url;
+            document.getElementById('embedded-modal').classList.remove('hidden');
+            document.getElementById('embedded-modal').classList.add('flex');
         }
-        function closeRulesModal() {
-            document.getElementById('rules-modal').classList.remove('flex');
-            document.getElementById('rules-modal').classList.add('hidden');
+
+        function closeEmbeddedModal() {
+            document.getElementById('embedded-modal').classList.remove('flex');
+            document.getElementById('embedded-modal').classList.add('hidden');
+            document.getElementById('embedded-iframe').src = '';
+        }
+
+        // منوی اطلاعات (درباره ما و قوانین، راهنما، سوالات متداول)
+        function openInfoModal(type) {
+            const titleElem = document.getElementById('info-modal-title');
+            const contentElem = document.getElementById('info-modal-content');
+            
+            if (type === 'about') {
+                titleElem.innerHTML = '<svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg> درباره ما و قوانین یاشار کلاب';
+                contentElem.innerHTML = `
+                    <div class="space-y-3">
+                        <div class="bg-amber-500/10 border border-amber-500/20 p-3.5 rounded-2xl text-amber-700 dark:text-amber-300 font-medium leading-relaxed">
+                            به «یاشار کلاب» خوش اومدی. اینجا قراره با هم رشد کنیم و درآمد داشته باشیم. برای اینکه چرخِ این سیستم همیشه بچرخه، چند قانون ساده داریم:
+                        </div>
+                        <ul class="space-y-2 text-slate-600 dark:text-slate-300 list-disc list-inside">
+                            <li><strong>بدون تکرار و اسپم:</strong> ما به دنبال تکرار و اسپم نیستیم. اگر مأموریتی رو انجام می‌دی، خروجیِ باکیفیت ارائه بده. ارسال محتوای بی‌ارزش یا کپی‌پیست، نه تنها پاداش نداره، بلکه امتیاز منفی برای حساب کاربریِ تو ثبت می‌کنه.</li>
+                            <li><strong>عدم استفاده از ربات:</strong> استفاده از ربات یا ابزارهای تولید محتوایِ انبوه برای انجام مأموریت‌ها ممنوعه و منجر به عدم پرداخت می‌شه. ما اینجا هستیم که هوشِ انسانی رو به کار بگیریم.</li>
+                            <li><strong>بررسی دقیق و تسویه:</strong> ما یک پلتفرمِ «بررسی‌محور» هستیم؛ تمام مأموریت‌ها توسط تیمِ «یاشار کلاب» بررسی می‌شن. پرداخت‌ها بلافاصله نیست (برای جلوگیری از تخلفات)، اما قول می‌دیم در کوتاه‌ترین زمانِ ممکن بعد از تاییدِ نهایی، تسویه انجام بشه.</li>
+                            <li><strong>جامعه و اخلاق حرفه‌ای:</strong> یاشار کلاب یک جامعه‌ست. هرگونه توهین، بحث‌های حاشیه‌ای در کامنت‌ها یا تلاش برای دور زدنِ قوانینِ سیستم، باعث عدم امکان استفاده تو از یاشار کلاب می‌شه.</li>
+                        </ul>
+                    </div>
+                `;
+            } else if (type === 'guide') {
+                titleElem.innerHTML = '<svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2-2.5Z"/><path d="M6 6h10M6 10h10"/></svg> راهنمای کار با یاشار کلاب';
+                contentElem.innerHTML = `
+                    <p>۱. مأموریت دلخواه خود را از لیست انتخاب کنید.</p>
+                    <p>۲. دکمه «انجام مأموریت» را بزنید و مراحل خواسته‌شده (مانند ثبت‌نام با کد معرف یا تکمیل پرسشنامه) را با دقت انجام دهید.</p>
+                    <p>۳. پس از اتمام، دکمه «ثبت در صف بررسی (انجام دادم)» را انتخاب کرده و اطلاعات فرم تایید را تکمیل کنید.</p>
+                    <p>۴. پس از بررسی تیم یاشار کلاب، پاداش نقدی شما از طریق «پاکت هدیه بله» واریز خواهد شد.</p>
+                `;
+            } else if (type === 'faq') {
+                titleElem.innerHTML = '<svg class="w-4 h-4 text-purple-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> سوالات متداول';
+                contentElem.innerHTML = `
+                    <p><strong>- آیا پرداخت‌ها آنی است؟</strong><br>خیر، برای بررسی دقیق تخلفات و اسپم، پرداخت‌ها پس از تایید صف بررسی انجام می‌شوند.</p>
+                    <p><strong>- پرداخت ها حداکثر چقدر طول میکشه انجام میشه؟</strong><br>حداکثر ۴۸ ساعت. اگر تا ۴۸ ساعت واریز نشد با پشتیبانی ارتباط بگیر.</p>
+                    <p><strong>- پاداش چگونه واریز می‌شود؟</strong><br>از طریق پاکت هدیه پیام‌رسان بله واریزی انجام می‌شود.</p>
+                `;
+            }
+            
+            document.getElementById('info-modal').classList.remove('hidden');
+            document.getElementById('info-modal').classList.add('flex');
+        }
+
+        function closeInfoModal() {
+            document.getElementById('info-modal').classList.remove('flex');
+            document.getElementById('info-modal').classList.add('hidden');
+        }
+
+        // مدیریت کادر شناور پشتیبانی
+        function toggleFloatingWidget() {
+            const modal = document.getElementById('floating-widget-modal');
+            if (modal.classList.contains('hidden')) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            } else {
+                modal.classList.remove('flex');
+                modal.classList.add('hidden');
+            }
+        }
+
+        // سیستم فیلتر مأموریت‌ها بر اساس سطح
+        function filterMissions(level) {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('bg-amber-500', 'text-slate-950');
+                btn.classList.add('bg-slate-100', 'dark:bg-slate-800', 'text-slate-600', 'dark:text-slate-300');
+            });
+            
+            const activeBtn = event.currentTarget;
+            activeBtn.classList.remove('bg-slate-100', 'dark:bg-slate-800', 'text-slate-600', 'dark:text-slate-300');
+            activeBtn.classList.add('bg-amber-500', 'text-slate-950');
+
+            const cards = document.querySelectorAll('.mission-card');
+            cards.forEach(card => {
+                const cardLevel = card.getAttribute('data-level');
+                if (level === 'all' || cardLevel === level || (level === 'سخت' && (cardLevel === 'سخت' || cardLevel === 'خیلی سخت'))) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // مرتب‌سازی مأموریت‌ها بر اساس پاداش
+        function sortMissions() {
+            const sortVal = document.getElementById('sort-select').value;
+            const container = document.getElementById('missions-container');
+            const cardsArray = Array.from(container.getElementsByClassName('mission-card'));
+
+            cardsArray.sort((a, b) => {
+                const rewardA = parseInt(a.getAttribute('data-reward')) || 0;
+                const rewardB = parseInt(b.getAttribute('data-reward')) || 0;
+
+                if (sortVal === 'reward-desc') return rewardB - rewardA;
+                if (sortVal === 'reward-asc') return rewardA - rewardB;
+                return 0; // پیش‌فرض
+            });
+
+            cardsArray.forEach(card => container.appendChild(card));
+        }
+
+        // مودال پیشنهاد هوشمند مأموریت
+        function openSmartFormModal() {
+            document.getElementById('smart-form-modal').classList.remove('hidden');
+            document.getElementById('smart-form-modal').classList.add('flex');
+        }
+
+        function closeSmartFormModal() {
+            document.getElementById('smart-form-modal').classList.remove('flex');
+            document.getElementById('smart-form-modal').classList.add('hidden');
+        }
+
+        function submitSmartForm(event) {
+            event.preventDefault();
+            const q1 = document.querySelector('input[name="q1"]:checked').value;
+            const q3 = document.querySelector('input[name="q3"]:checked').value;
+            const q2Checked = Array.from(document.querySelectorAll('input[name="q2"]:checked')).map(el => el.value);
+
+            // انتخاب چند پیشنهاد بر اساس پاسخ‌های کاربر
+            const allCards = Array.from(document.querySelectorAll('.mission-card'));
+            let matched = [];
+
+            if (q2Checked.includes('صرافی و مالی') || q3 === 'حرفه ای') {
+                const cryptoMissions = allCards.filter(c => c.querySelector('h4').textContent.includes('صراف') || c.querySelector('h4').textContent.includes('میلی') || c.querySelector('h4').textContent.includes('نوبیتکس'));
+                matched.push(...cryptoMissions);
+            }
+            if (q2Checked.includes('پرسشنامه') || q1 === 'کم') {
+                const easyMissions = allCards.filter(c => c.getAttribute('data-level') === 'آسان');
+                matched.push(...easyMissions);
+            }
+            if (q2Checked.includes('فروشگاه')) {
+                const storeMissions = allCards.filter(c => c.querySelector('h4').textContent.includes('فروشگاه') || c.querySelector('h4').textContent.includes('دیدگاه'));
+                matched.push(...storeMissions);
+            }
+
+            // اگر موردی تطابق نداشت یا عمومی بود، چند مورد پیش‌فرض اضافه کن
+            if (matched.length === 0) {
+                matched = allCards.slice(0, 3);
+            }
+
+            // حذف موارد تکراری احتمالی
+            matched = [...new Set(matched)];
+
+            const listContainer = document.getElementById('recommended-missions-list');
+            listContainer.innerHTML = '';
+
+            matched.forEach(card => {
+                const title = card.querySelector('h4').textContent;
+                const reward = card.querySelector('.rounded-full.bg-amber-500\\/10').textContent;
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-3 rounded-2xl flex items-center justify-between gap-2';
+                itemDiv.innerHTML = `
+                    <div>
+                        <h5 class="font-bold text-slate-900 dark:text-white">${title}</h5>
+                        <span class="text-amber-500 font-extrabold text-[11px]">پاداش: ${reward}</span>
+                    </div>
+                    <span class="text-xs bg-amber-500/10 text-amber-600 dark:text-amber-400 px-2.5 py-1 rounded-xl font-semibold">پیشنهاد ویژه</span>
+                `;
+                listContainer.appendChild(itemDiv);
+            });
+
+            document.getElementById('smart-questions-form').parentElement.classList.add('hidden');
+            document.getElementById('smart-results-container').classList.remove('hidden');
+        }
+
+        function resetSmartForm() {
+            document.getElementById('smart-questions-form').reset();
+            document.getElementById('smart-results-container').classList.add('hidden');
+            document.getElementById('smart-questions-form').parentElement.classList.remove('hidden');
         }
     </script>
 </body>
