@@ -49,8 +49,9 @@
                 <div>
                     <h1 class="text-lg font-extrabold tracking-wide flex items-center gap-1.5">
                         یاشار کلاب 
+                        <span class="bg-amber-500/10 text-amber-500 dark:text-amber-400 text-[10px] font-semibold px-2 py-0.5 rounded-full border border-amber-500/20">نسخه ۰۴.۰۶.۰۵</span>
                     </h1>
-                    <p class="text-[11px] text-slate-500 dark:text-slate-400">ماموریت انجام بده، جایزه ببر!</p>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400">ماموریت انجام بده، جایزه نقدی ببر!</p>
                 </div>
             </div>
             
@@ -712,92 +713,154 @@
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                 </button>
             </div>
-            <div class="flex-grow relative bg-slate-50 dark:bg-slate-900/50 flex flex-col">
-                <iframe id="floating-iframe" src="" class="w-full h-full border-0"></iframe>
-                <div id="floating-iframe-loader" class="absolute inset-0 flex items-center justify-center bg-white dark:bg-cardbg text-slate-500 text-xs">
-                    در حال بارگذاری فرم...
+            <div class="flex-grow w-full relative bg-slate-50 dark:bg-slate-950">
+                <iframe src="https://survey.porsline.ir/s/WCQYOc4K" class="w-full h-full border-0" title="پشتیبانی"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- مودال راهنمای انجام مأموریت -->
+    <div id="guide-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden items-center justify-center p-4 z-50">
+        <div class="bg-white dark:bg-cardbg border border-slate-200 dark:border-slate-800 w-full max-w-md rounded-3xl p-6 shadow-2xl relative transform transition-all">
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-xl bg-amber-500/10 text-amber-500 dark:text-amber-400 flex items-center justify-center">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                    </div>
+                    <h3 id="modal-title" class="text-base font-bold text-slate-900 dark:text-white">راهنمای مأموریت</h3>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- مدال عمومی اطلاعات (قوانین، راهنما، سوالات متداول) -->
-    <div id="info-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-950/50 backdrop-blur-sm">
-        <div class="bg-white dark:bg-cardbg border border-slate-200 dark:border-slate-800 w-full max-w-lg rounded-3xl p-6 shadow-2xl max-h-[85vh] flex flex-col">
-            <div class="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800">
-                <h3 id="info-modal-title" class="text-base font-bold">عنوان</h3>
-                <button onclick="closeInfoModal()" class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                </button>
-            </div>
-            <div id="info-modal-content" class="py-4 text-xs md:text-sm text-slate-600 dark:text-slate-300 leading-relaxed overflow-y-auto space-y-3">
-                <!-- محتوا به صورت داینامیک لود می شود -->
-            </div>
-            <div class="pt-4 border-t border-slate-200 dark:border-slate-800 flex justify-end">
-                <button onclick="closeInfoModal()" class="bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-bold px-4 py-2.5 rounded-xl transition">
-                    بستن
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- مدال嵌入ی انجام مأموریت (برای لینک‌های خارجی مثل پرس‌لاین) -->
-    <div id="embedded-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm">
-        <div class="bg-white dark:bg-cardbg border border-slate-200 dark:border-slate-800 w-full max-w-3xl h-[85vh] rounded-3xl shadow-2xl flex flex-col overflow-hidden">
-            <div class="bg-slate-900 text-white px-5 py-4 flex items-center justify-between border-b border-slate-800">
-                <h3 id="embedded-modal-title" class="text-sm font-bold">تکمیل مأموریت</h3>
-                <button onclick="closeEmbeddedModal()" class="p-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition">
+                <button onclick="closeGuide()" class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-1 rounded-lg">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                 </button>
             </div>
-            <div class="flex-grow relative bg-slate-50 dark:bg-slate-900 flex flex-col">
-                <iframe id="embedded-iframe" src="" class="w-full h-full border-0"></iframe>
+            <p id="modal-desc" class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-6 bg-slate-50 dark:bg-slate-900/60 p-4 rounded-2xl border border-slate-100 dark:border-slate-800">متن راهنما...</p>
+            <div class="flex items-center gap-3">
+                <a id="modal-link" href="#" target="_blank" class="flex-1 bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-bold py-3 px-4 rounded-xl text-center transition shadow-sm flex items-center justify-center gap-1.5">
+                    <span>ورود به لینک مأموریت</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </a>
+                <button onclick="closeGuide()" class="bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold py-3 px-4 rounded-xl transition">بستن</button>
             </div>
         </div>
     </div>
 
-    <!-- مدال پیشنهاد هوشمند مأموریت -->
-    <div id="smart-form-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm">
-        <div class="bg-white dark:bg-cardbg border border-slate-200 dark:border-slate-800 w-full max-w-lg rounded-3xl p-6 shadow-2xl">
-            <div class="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800">
-                <h3 class="text-base font-bold flex items-center gap-2">
-                    <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
-                    <span>سیستم پیشنهاد هوشمند مأموریت</span>
-                </h3>
-                <button onclick="closeSmartFormModal()" class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    <!-- مودال ثبت در صف بررسی (فرم پرسلاین تعبیه شده) -->
+    <div id="embedded-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden items-center justify-center p-4 z-50">
+        <div class="bg-white dark:bg-cardbg border border-slate-200 dark:border-slate-800 w-full max-w-2xl h-[85vh] rounded-3xl shadow-2xl flex flex-col overflow-hidden relative transform transition-all">
+            <div class="bg-slate-900 text-white px-5 py-4 flex items-center justify-between border-b border-slate-800">
+                <div class="flex items-center gap-2">
+                    <div class="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
+                    <h3 id="embedded-modal-title" class="text-sm font-bold">ثبت در صف بررسی مأموریت</h3>
+                </div>
+                <button onclick="closeEmbeddedModal()" class="text-slate-400 hover:text-white p-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                 </button>
             </div>
-            <div class="py-4 space-y-4">
-                <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                    لطفا سطح علاقه‌مندی یا توانایی خود را انتخاب کنید تا بهترین مأموریت‌ها به شما پیشنهاد شود:
+            <div class="flex-grow w-full relative bg-slate-50 dark:bg-slate-950">
+                <iframe id="embedded-iframe" src="" class="w-full h-full border-0" title="ثبت ماموریت"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- مودال درباره ما / راهنما / سوالات متداول (بروز شده با قوانین جدید) -->
+    <div id="info-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden items-center justify-center p-4 z-50">
+        <div class="bg-white dark:bg-cardbg border border-slate-200 dark:border-slate-800 w-full max-w-lg rounded-3xl p-6 shadow-2xl relative transform transition-all max-h-[85vh] flex flex-col">
+            <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-100 dark:border-slate-800">
+                <h3 id="info-modal-title" class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">عنوان</h3>
+                <button onclick="closeInfoModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-1 rounded-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div id="info-modal-content" class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed overflow-y-auto space-y-3 flex-grow pr-1">
+                محموا...
+            </div>
+            <div class="pt-4 mt-4 border-t border-slate-100 dark:border-slate-800 text-center">
+                <button onclick="closeInfoModal()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-bold py-2.5 px-6 rounded-xl transition shadow-sm">متوجه شدم</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- مودال پیشنهاد هوشمند مأموریت (بدون سوالات حذف‌شده و با امکان نمایش چند پیشنهاد + سلب مسئولیت) -->
+    <div id="smart-form-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden items-center justify-center p-4 z-50">
+        <div class="bg-white dark:bg-cardbg border border-slate-200 dark:border-slate-800 w-full max-w-md rounded-3xl p-6 shadow-2xl relative transform transition-all max-h-[90vh] flex flex-col">
+            <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-100 dark:border-slate-800">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                    </div>
+                    <h3 class="text-base font-bold text-slate-900 dark:text-white">پیشنهاد هوشمند مأموریت</h3>
+                </div>
+                <button onclick="closeSmartFormModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-1 rounded-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+            </div>
+            
+            <div id="smart-form-body" class="overflow-y-auto flex-grow space-y-4 pr-1 text-xs">
+                <p class="text-slate-500 dark:text-slate-400 leading-relaxed">
+                    به چند سوال کوتاه پاسخ دهید تا سیستم هوشمند ما بهترین مأموریت‌ها را برای کسب درآمد بیشتر به شما پیشنهاد دهد:
                 </p>
-                <div class="space-y-2">
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300">ترجیح سطح مأموریت:</label>
-                    <select id="smart-level" class="w-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-xs rounded-xl p-3 outline-none font-medium">
-                        <option value="آسان">مأموریت‌های آسان (سریع با پاداش پایه)</option>
-                        <option value="متوسط">مأموریت‌های متوسط (ثبت‌نام و دیدگاه)</option>
-                        <option value="سخت">مأموریت‌های سخت و خیلی سخت (پاداش عالی ۱۰ الی ۴۰ هزار تومان)</option>
-                    </select>
-                </div>
-                <div class="p-3.5 bg-amber-500/10 border border-amber-500/20 rounded-2xl text-xs text-amber-600 dark:text-amber-400 leading-relaxed">
-                    با کلیک روی دکمه زیر، سیستم بر اساس فیلتر انتخابی شما مأموریت‌های مناسب را مرتب و نمایش خواهد داد.
-                </div>
+                <form id="smart-questions-form" onsubmit="submitSmartForm(event)" class="space-y-4">
+                    <!-- سوال ۱ -->
+                    <div class="space-y-1.5">
+                        <label class="font-semibold block text-slate-800 dark:text-slate-200">۱. چقدر زمان در روز برای انجام مأموریت‌ها دارید؟</label>
+                        <div class="space-y-1">
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="q1" value="کم" required class="accent-amber-500"> کمتر از ۳۰ دقیقه</label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="q1" value="متوسط" class="accent-amber-500"> بین ۳۰ تا ۶۰ دقیقه</label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="q1" value="زیاد" class="accent-amber-500"> بیش از ۱ ساعت</label>
+                        </div>
+                    </div>
+                    <!-- سوال ۲ -->
+                    <div class="space-y-1.5">
+                        <label class="font-semibold block text-slate-800 dark:text-slate-200">۲. ترجیح می‌دهید روی چه نوع مأموریت‌هایی تمرکز کنید؟</label>
+                        <div class="space-y-1">
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" name="q2" value="صرافی و مالی" class="accent-amber-500"> صرافی‌های ارز دیجیتال و طلا (پاداش بالا)</label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" name="q2" value="پرسشنامه" class="accent-amber-500"> پرسشنامه‌ها و نظرسنجی‌های آسان</label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" name="q2" value="فروشگاه" class="accent-amber-500"> خرید، ثبت دیدگاه و سفارش فروشگاه</label>
+                        </div>
+                    </div>
+                    <!-- سوال ۳ -->
+                    <div class="space-y-1.5">
+                        <label class="font-semibold block text-slate-800 dark:text-slate-200">۳. میزان آشنایی شما با ثبت نام در صرافی‌ها و پلتفرم‌های مالی چقدر است؟</label>
+                        <div class="space-y-1">
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="q3" value="مبتدی" required class="accent-amber-500"> مبتدی (نیاز به راهنمایی دارم)</label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="q3" value="متوسط" class="accent-amber-500"> متوسط</label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="q3" value="حرفه ای" class="accent-amber-500"> حرفه‌ای و آشنا</label>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-slate-950 font-bold py-3 px-4 rounded-xl transition shadow-sm mt-4">
+                        دریافت پیشنهاد هوشمند مأموریت‌ها
+                    </button>
+                </form>
             </div>
-            <div class="pt-4 border-t border-slate-200 dark:border-slate-800 flex justify-end gap-2">
-                <button onclick="closeSmartFormModal()" class="bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-bold px-4 py-2.5 rounded-xl transition">
-                    انصراف
-                </button>
-                <button onclick="applySmartRecommendation()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-bold px-5 py-2.5 rounded-xl transition shadow-sm">
-                    پیشنهاد بده و نمایش بده
+
+            <!-- بخش نمایش نتایج تحلیل هوشمند -->
+            <div id="smart-results-container" class="hidden overflow-y-auto flex-grow space-y-4 pr-1 text-xs">
+                <div class="bg-amber-500/10 border border-amber-500/30 p-3.5 rounded-2xl text-amber-600 dark:text-amber-400 font-semibold flex items-center gap-2">
+                    <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <span>بر اساس تحلیل پاسخ‌های شما، مأموریت‌های زیر پیشنهاد می‌شوند:</span>
+                </div>
+                
+                <div id="recommended-missions-list" class="space-y-2.5">
+                    <!-- به صورت دینامیک پر می‌شود -->
+                </div>
+
+                <div class="pt-3 border-t border-slate-200 dark:border-slate-800 text-[11px] text-slate-400 italic text-center">
+                    این پیشنهادات صرفاً بر اساس پاسخ‌های شما بوده و یاشار کلاب مسئولیتی ندارد.
+                </div>
+
+                <button onclick="resetSmartForm()" class="w-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold py-2.5 px-4 rounded-xl transition">
+                    تلاش مجدد / تغییر پاسخ‌ها
                 </button>
             </div>
+
         </div>
     </div>
 
-    <!-- اسکریپت‌ها و منطق تعاملی صفحه -->
     <script>
-        // تغییر تم سایت
+        // تغییر تم (روشن / تیره)
         function toggleTheme() {
             const html = document.documentElement;
             if (html.classList.contains('dark')) {
@@ -809,153 +872,78 @@
             }
         }
 
-        // بارگذاری اولیه تم ذخیره شده
+        // بارگذاری تم ذخیره شده
         if (localStorage.getItem('theme') === 'light') {
             document.documentElement.classList.remove('dark');
         }
 
-        // فیلتر کردن مأموریت‌ها بر اساس سطح
-        function filterMissions(level) {
-            const cards = document.querySelectorAll('.mission-card');
-            const buttons = document.querySelectorAll('.filter-btn');
-
-            buttons.forEach(btn => {
-                btn.classList.remove('bg-amber-500', 'text-slate-950');
-                btn.classList.add('bg-slate-100', 'dark:bg-slate-800', 'text-slate-600', 'dark:text-slate-300');
-            });
-
-            if (level === 'all') {
-                document.getElementById('filter-all').classList.remove('bg-slate-100', 'dark:bg-slate-800', 'text-slate-600', 'dark:text-slate-300');
-                document.getElementById('filter-all').classList.add('bg-amber-500', 'text-slate-950');
-            } else if (level === 'آسان') {
-                document.getElementById('filter-easy').classList.remove('bg-slate-100', 'dark:bg-slate-800', 'text-slate-600', 'dark:text-slate-300');
-                document.getElementById('filter-easy').classList.add('bg-amber-500', 'text-slate-950');
-            } else if (level === 'متوسط') {
-                document.getElementById('filter-med').classList.remove('bg-slate-100', 'dark:bg-slate-800', 'text-slate-600', 'dark:text-slate-300');
-                document.getElementById('filter-med').classList.add('bg-amber-500', 'text-slate-950');
-            } else if (level === 'سخت') {
-                document.getElementById('filter-hard').classList.remove('bg-slate-100', 'dark:bg-slate-800', 'text-slate-600', 'dark:text-slate-300');
-                document.getElementById('filter-hard').classList.add('bg-amber-500', 'text-slate-950');
-            }
-
-            cards.forEach(card => {
-                const cardLevel = card.getAttribute('data-level');
-                if (level === 'all') {
-                    card.style.display = 'block';
-                } else if (level === 'سخت') {
-                    if (cardLevel === 'سخت' || cardLevel === 'خیلی سخت') {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                } else {
-                    if (cardLevel === level) {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                }
-            });
+        // باز کردن مودال راهنما
+        function openGuide(title, desc, link) {
+            document.getElementById('modal-title').innerText = 'راهنما: ' + title;
+            document.getElementById('modal-desc').innerText = desc;
+            document.getElementById('modal-link').href = link;
+            document.getElementById('guide-modal').classList.remove('hidden');
+            document.getElementById('guide-modal').classList.add('flex');
         }
 
-        // مرتب‌سازی مأموریت‌ها بر اساس پاداش
-        function sortMissions() {
-            const sortBy = document.getElementById('sort-select').value;
-            const container = document.getElementById('missions-container');
-            const cardsArray = Array.from(container.getElementsByClassName('mission-card'));
-
-            cardsArray.sort((a, b) => {
-                const rewardA = parseInt(a.getAttribute('data-reward')) || 0;
-                const rewardB = parseInt(b.getAttribute('data-reward')) || 0;
-
-                if (sortBy === 'reward-desc') {
-                    return rewardB - rewardA;
-                } else if (sortBy === 'reward-asc') {
-                    return rewardA - rewardB;
-                } else {
-                    return 0; // پیش‌فرض
-                }
-            });
-
-            cardsArray.forEach(card => container.appendChild(card));
+        function closeGuide() {
+            document.getElementById('guide-modal').classList.remove('flex');
+            document.getElementById('guide-modal').classList.add('hidden');
         }
 
-        // باز کردن راهنمای مأموریت (مدال嵌入ی)
-        function openGuide(title, description, url) {
-            document.getElementById('embedded-modal-title').innerText = 'راهنمای انجام: ' + title;
-            const iframe = document.getElementById('embedded-iframe');
-            iframe.src = url;
-            document.getElementById('embedded-modal').classList.remove('hidden');
-            document.getElementById('embedded-modal').classList.add('flex');
-        }
-
-        // باز کردن مدال فرم嵌入ی ثبت در صف بررسی
+        // باز کردن مودال ثبت در صف بررسی (پرسلاین)
         function openEmbeddedModal(url, title) {
             document.getElementById('embedded-modal-title').innerText = title;
-            const iframe = document.getElementById('embedded-iframe');
-            iframe.src = url;
+            document.getElementById('embedded-iframe').src = url;
             document.getElementById('embedded-modal').classList.remove('hidden');
             document.getElementById('embedded-modal').classList.add('flex');
         }
 
-        // بستن مدال嵌入ی
         function closeEmbeddedModal() {
             document.getElementById('embedded-modal').classList.remove('flex');
             document.getElementById('embedded-modal').classList.add('hidden');
             document.getElementById('embedded-iframe').src = '';
         }
 
-        // کنترل ویجت شناور 🎧
-        function toggleFloatingWidget() {
-            const modal = document.getElementById('floating-widget-modal');
-            const iframe = document.getElementById('floating-iframe');
-            const loader = document.getElementById('floating-iframe-loader');
-
-            if (modal.classList.contains('hidden')) {
-                modal.classList.remove('hidden');
-                modal.classList.add('flex');
-                if (!iframe.src || iframe.src === 'about:blank') {
-                    loader.style.display = 'flex';
-                    iframe.src = 'https://survey.porsline.ir/s/t0p2PRsc';
-                    iframe.onload = () => { loader.style.display = 'none'; };
-                }
-            } else {
-                modal.classList.remove('flex');
-                modal.classList.add('hidden');
-            }
-        }
-
-        // مدال‌های اطلاعات (قوانین، راهنما، سوالات متداول)
+        // منوی اطلاعات (درباره ما و قوانین، راهنما، سوالات متداول)
         function openInfoModal(type) {
-            const modal = document.getElementById('info-modal');
-            const titleEl = document.getElementById('info-modal-title');
-            const contentEl = document.getElementById('info-modal-content');
-
+            const titleElem = document.getElementById('info-modal-title');
+            const contentElem = document.getElementById('info-modal-content');
+            
             if (type === 'about') {
-                titleEl.innerText = 'قوانین و مقررات یاشار کلاب';
-                contentEl.innerHTML = `
-                    <p>۱. تمامی جوایز پس از بررسی و تایید نهایی کارشناسان از طریق «پاکت هدیه بله» واریز می‌گردند.</p>
-                    <p>۲. استفاده از اطلاعات فیک یا تکراری برای انجام مأموریت‌ها منجر به مسدود شدن حساب کاربری و عدم پرداخت پاداش خواهد شد.</p>
-                    <p>۳. مهلت بررسی صف انتظار بسته به حجم درخواست‌ها بین ۲۴ تا ۷۲ ساعت کاری زمان می‌برد.</p>
-                    <p>۴. استفاده از یاشار کلاب به منزله پذیرش کامل تمامی این قوانین است.</p>
+                titleElem.innerHTML = '<svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg> درباره ما و قوانین یاشار کلاب';
+                contentElem.innerHTML = `
+                    <div class="space-y-3">
+                        <div class="bg-amber-500/10 border border-amber-500/20 p-3.5 rounded-2xl text-amber-700 dark:text-amber-300 font-medium leading-relaxed">
+                            به «یاشار کلاب» خوش اومدی. اینجا قراره با هم رشد کنیم و درآمد داشته باشیم. برای اینکه چرخِ این سیستم همیشه بچرخه، چند قانون ساده داریم:
+                        </div>
+                        <ul class="space-y-2 text-slate-600 dark:text-slate-300 list-disc list-inside">
+                            <li><strong>بدون تکرار و اسپم:</strong> ما به دنبال تکرار و اسپم نیستیم. اگر مأموریتی رو انجام می‌دی، خروجیِ باکیفیت ارائه بده. ارسال محتوای بی‌ارزش یا کپی‌پیست، نه تنها پاداش نداره، بلکه امتیاز منفی برای حساب کاربریِ تو ثبت می‌کنه.</li>
+                            <li><strong>عدم استفاده از ربات:</strong> استفاده از ربات یا ابزارهای تولید محتوایِ انبوه برای انجام مأموریت‌ها ممنوعه و منجر به عدم پرداخت می‌شه. ما اینجا هستیم که هوشِ انسانی رو به کار بگیریم.</li>
+                            <li><strong>بررسی دقیق و تسویه:</strong> ما یک پلتفرمِ «بررسی‌محور» هستیم؛ تمام مأموریت‌ها توسط تیمِ «یاشار کلاب» بررسی می‌شن. پرداخت‌ها بلافاصله نیست (برای جلوگیری از تخلفات)، اما قول می‌دیم در کوتاه‌ترین زمانِ ممکن بعد از تاییدِ نهایی، تسویه انجام بشه.</li>
+                            <li><strong>جامعه و اخلاق حرفه‌ای:</strong> یاشار کلاب یک جامعه‌ست. هرگونه توهین، بحث‌های حاشیه‌ای در کامنت‌ها یا تلاش برای دور زدنِ قوانینِ سیستم، باعث عدم امکان استفاده تو از یاشار کلاب می‌شه.</li>
+                        </ul>
+                    </div>
                 `;
             } else if (type === 'guide') {
-                titleEl.innerText = 'راهنمای جامع کسب درآمد';
-                contentEl.innerHTML = `
-                    <p>۱. ابتدا لیست مأموریت‌های فعال را بررسی کنید.</p>
-                    <p>۲. روی دکمه «انجام مأموریت» کلیک کرده و مراحل خواسته شده در وب‌سایت مقصد را به دقت تکمیل نمایید.</p>
-                    <p>۳. پس از اتمام کار، روی دکمه «ثبت در صف بررسی (انجام دادم)» کلیک کنید و فرم مربوطه را پر کنید تا کارشناسان ما بررسی و پاداش شما را واریز نمایند.</p>
+                titleElem.innerHTML = '<svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2-2.5Z"/><path d="M6 6h10M6 10h10"/></svg> راهنمای کار با یاشار کلاب';
+                contentElem.innerHTML = `
+                    <p>۱. مأموریت دلخواه خود را از لیست انتخاب کنید.</p>
+                    <p>۲. دکمه «انجام مأموریت» را بزنید و مراحل خواسته‌شده (مانند ثبت‌نام با کد معرف یا تکمیل پرسشنامه) را با دقت انجام دهید.</p>
+                    <p>۳. پس از اتمام، دکمه «ثبت در صف بررسی (انجام دادم)» را انتخاب کرده و اطلاعات فرم تایید را تکمیل کنید.</p>
+                    <p>۴. پس از بررسی تیم یاشار کلاب، پاداش نقدی شما از طریق «پاکت هدیه بله» واریز خواهد شد.</p>
                 `;
             } else if (type === 'faq') {
-                titleEl.innerText = 'سوالات متداول کاربران';
-                contentEl.innerHTML = `
-                    <p><strong>- جوایز چه زمانی واریز می‌شوند؟</strong><br>پس از تأیید نهایی در صف بررسی، جوایز از طریق پاکت هدیه در پیام‌رسان بله واریز می‌شوند.</p>
-                    <p><strong>- آیا می‌توانم یک مأموریت را چند بار انجام دهم؟</strong><br>خیر، هر مأموریت برای هر کاربر تنها یک بار قابل انجام و پاداش‌دهی است.</p>
+                titleElem.innerHTML = '<svg class="w-4 h-4 text-purple-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> سوالات متداول';
+                contentElem.innerHTML = `
+                    <p><strong>- آیا پرداخت‌ها آنی است؟</strong><br>خیر، برای بررسی دقیق تخلفات و اسپم، پرداخت‌ها پس از تایید صف بررسی انجام می‌شوند.</p>
+                    <p><strong>- پرداخت ها حداکثر چقدر طول میکشه انجام میشه؟</strong><br>حداکثر ۴۸ ساعت. اگر تا ۴۸ ساعت واریز نشد با پشتیبانی ارتباط بگیر.</p>
+                    <p><strong>- پاداش چگونه واریز می‌شود؟</strong><br>از طریق پاکت هدیه پیام‌رسان بله واریزی انجام می‌شود.</p>
                 `;
             }
-
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
+            
+            document.getElementById('info-modal').classList.remove('hidden');
+            document.getElementById('info-modal').classList.add('flex');
         }
 
         function closeInfoModal() {
@@ -963,7 +951,59 @@
             document.getElementById('info-modal').classList.add('hidden');
         }
 
-        // مدال پیشنهاد هوشمند
+        // مدیریت کادر شناور پشتیبانی
+        function toggleFloatingWidget() {
+            const modal = document.getElementById('floating-widget-modal');
+            if (modal.classList.contains('hidden')) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            } else {
+                modal.classList.remove('flex');
+                modal.classList.add('hidden');
+            }
+        }
+
+        // سیستم فیلتر مأموریت‌ها بر اساس سطح
+        function filterMissions(level) {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('bg-amber-500', 'text-slate-950');
+                btn.classList.add('bg-slate-100', 'dark:bg-slate-800', 'text-slate-600', 'dark:text-slate-300');
+            });
+            
+            const activeBtn = event.currentTarget;
+            activeBtn.classList.remove('bg-slate-100', 'dark:bg-slate-800', 'text-slate-600', 'dark:text-slate-300');
+            activeBtn.classList.add('bg-amber-500', 'text-slate-950');
+
+            const cards = document.querySelectorAll('.mission-card');
+            cards.forEach(card => {
+                const cardLevel = card.getAttribute('data-level');
+                if (level === 'all' || cardLevel === level || (level === 'سخت' && (cardLevel === 'سخت' || cardLevel === 'خیلی سخت'))) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // مرتب‌سازی مأموریت‌ها بر اساس پاداش
+        function sortMissions() {
+            const sortVal = document.getElementById('sort-select').value;
+            const container = document.getElementById('missions-container');
+            const cardsArray = Array.from(container.getElementsByClassName('mission-card'));
+
+            cardsArray.sort((a, b) => {
+                const rewardA = parseInt(a.getAttribute('data-reward')) || 0;
+                const rewardB = parseInt(b.getAttribute('data-reward')) || 0;
+
+                if (sortVal === 'reward-desc') return rewardB - rewardA;
+                if (sortVal === 'reward-asc') return rewardA - rewardB;
+                return 0; // پیش‌فرض
+            });
+
+            cardsArray.forEach(card => container.appendChild(card));
+        }
+
+        // مودال پیشنهاد هوشمند مأموریت
         function openSmartFormModal() {
             document.getElementById('smart-form-modal').classList.remove('hidden');
             document.getElementById('smart-form-modal').classList.add('flex');
@@ -974,11 +1014,63 @@
             document.getElementById('smart-form-modal').classList.add('hidden');
         }
 
-        function applySmartRecommendation() {
-            const level = document.getElementById('smart-level').value;
-            closeSmartFormModal();
-            filterMissions(level);
-            window.scrollTo({ top: 500, behavior: 'smooth' });
+        function submitSmartForm(event) {
+            event.preventDefault();
+            const q1 = document.querySelector('input[name="q1"]:checked').value;
+            const q3 = document.querySelector('input[name="q3"]:checked').value;
+            const q2Checked = Array.from(document.querySelectorAll('input[name="q2"]:checked')).map(el => el.value);
+
+            // انتخاب چند پیشنهاد بر اساس پاسخ‌های کاربر
+            const allCards = Array.from(document.querySelectorAll('.mission-card'));
+            let matched = [];
+
+            if (q2Checked.includes('صرافی و مالی') || q3 === 'حرفه ای') {
+                const cryptoMissions = allCards.filter(c => c.querySelector('h4').textContent.includes('صراف') || c.querySelector('h4').textContent.includes('میلی') || c.querySelector('h4').textContent.includes('نوبیتکس'));
+                matched.push(...cryptoMissions);
+            }
+            if (q2Checked.includes('پرسشنامه') || q1 === 'کم') {
+                const easyMissions = allCards.filter(c => c.getAttribute('data-level') === 'آسان');
+                matched.push(...easyMissions);
+            }
+            if (q2Checked.includes('فروشگاه')) {
+                const storeMissions = allCards.filter(c => c.querySelector('h4').textContent.includes('فروشگاه') || c.querySelector('h4').textContent.includes('دیدگاه'));
+                matched.push(...storeMissions);
+            }
+
+            // اگر موردی تطابق نداشت یا عمومی بود، چند مورد پیش‌فرض اضافه کن
+            if (matched.length === 0) {
+                matched = allCards.slice(0, 3);
+            }
+
+            // حذف موارد تکراری احتمالی
+            matched = [...new Set(matched)];
+
+            const listContainer = document.getElementById('recommended-missions-list');
+            listContainer.innerHTML = '';
+
+            matched.forEach(card => {
+                const title = card.querySelector('h4').textContent;
+                const reward = card.querySelector('.rounded-full.bg-amber-500\\/10').textContent;
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-3 rounded-2xl flex items-center justify-between gap-2';
+                itemDiv.innerHTML = `
+                    <div>
+                        <h5 class="font-bold text-slate-900 dark:text-white">${title}</h5>
+                        <span class="text-amber-500 font-extrabold text-[11px]">پاداش: ${reward}</span>
+                    </div>
+                    <span class="text-xs bg-amber-500/10 text-amber-600 dark:text-amber-400 px-2.5 py-1 rounded-xl font-semibold">پیشنهاد ویژه</span>
+                `;
+                listContainer.appendChild(itemDiv);
+            });
+
+            document.getElementById('smart-questions-form').parentElement.classList.add('hidden');
+            document.getElementById('smart-results-container').classList.remove('hidden');
+        }
+
+        function resetSmartForm() {
+            document.getElementById('smart-questions-form').reset();
+            document.getElementById('smart-results-container').classList.add('hidden');
+            document.getElementById('smart-questions-form').parentElement.classList.remove('hidden');
         }
     </script>
 </body>
