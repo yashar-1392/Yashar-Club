@@ -48,8 +48,8 @@ export const rulesContent: ContentSection[] = [
   {
     title: { fa: 'پرداخت جایزه', en: 'Reward Payment' },
     body: {
-      fa: 'جوایز به صورت نقدی و به تومان پرداخت می‌شوند. روش و زمان پرداخت پس از تایید درخواست از طریق کانال بله اطلاع‌رسانی خواهد شد.',
-      en: 'Rewards are paid in cash (Toman). Payment method and timing will be announced via the Bale channel after request approval.',
+      fa: 'جوایز به صورت نقدی و به ریال پرداخت می‌شوند. روش و زمان پرداخت پس از تایید درخواست از طریق کانال بله اطلاع‌رسانی خواهد شد.',
+      en: 'Rewards are paid in cash (Rial). Payment method and timing will be announced via the Bale channel after request approval.',
     },
   },
 ];
@@ -117,8 +117,8 @@ export const faqContent: FaqItem[] = [
   {
     question: { fa: 'جوایز چگونه پرداخت می‌شوند؟', en: 'How are rewards paid?' },
     answer: {
-      fa: 'جوایز به صورت نقدی و به تومان پرداخت می‌شوند. جزئیات پرداخت پس از تایید درخواست از طریق کانال بله اطلاع‌رسانی می‌شود.',
-      en: 'Rewards are paid in cash (Toman). Payment details are announced via the Bale channel after request approval.',
+      fa: 'جوایز به صورت نقدی و به ریال پرداخت می‌شوند. جزئیات پرداخت پس از تایید درخواست از طریق کانال بله اطلاع‌رسانی می‌شود.',
+      en: 'Rewards are paid in cash (Rial). Payment details are announced via the Bale channel after request approval.',
     },
   },
 ];

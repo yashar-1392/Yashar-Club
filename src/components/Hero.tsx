@@ -88,7 +88,7 @@ export function Hero({ onNavigate }: HeroProps) {
                 <div className="flex items-center justify-center mb-2">
                   <Users size={20} className="text-gold-300" />
                 </div>
-                <div className="text-2xl sm:text-3xl font-extrabold text-white">۵۰۰+</div>
+                <div className="text-2xl sm:text-3xl font-extrabold text-white">۱۰۰+</div>
                 <div className="text-xs sm:text-sm text-white/60 mt-1">{t.hero.statMembers}</div>
               </div>
             </div>
